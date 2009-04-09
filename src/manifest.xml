@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<componentPackage>    
+	<component class="net.seanhess.glue.Inject"/>
+	<component class="net.seanhess.glue.Glue"/>
+	<component class="net.seanhess.glue.Observe"/>
+	<component class="net.seanhess.glue.Route"/>
+	<component class="net.seanhess.glue.Smart"/>
+	<component class="net.seanhess.glue.Map"/>
+</componentPackage>
