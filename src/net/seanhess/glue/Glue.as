@@ -16,8 +16,7 @@ package net.seanhess.glue
 		private var mapTarget:IEventDispatcher;
 		private var map:BehaviorMap;
 		private var invalidator:Invalidator = new Invalidator(commit);
-		private var _view:UIComponent;
-		private var _viewID:String;
+		private var viewID:String
 		
 		public function set find(value:String):void
 		{
@@ -31,10 +30,14 @@ package net.seanhess.glue
 		
 		public function set view(value:UIComponent):void
 		{
-			_view = value;
-			_viewID = value.id;
+			viewID = value.id;
 			this.match = value.className;
-			// all I have to do is get map[value.id] set // 
+		}
+		
+		public function setCurrentInstance(view:*):void
+		{
+			if (viewID)
+				(map as Project).setCurrentInstance(viewID, view);
 		}
 		
 		override public function matches(target:*, root:*=null):Boolean
@@ -47,15 +50,8 @@ package net.seanhess.glue
 			{
 				var matches:Boolean = super.matches(target, root);
 				
-				if (_view && matches)
-				{
-					if (map.hasOwnProperty(_viewID))
-						map[_viewID] = target;
-						
-					else
-						throw new Error("Could not set " + target.id + " on " + map);
-				}
-				
+				if (matches)
+					setCurrentInstance(target);
 				return matches;
 			}
 		}

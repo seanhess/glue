@@ -9,5 +9,14 @@ package net.seanhess.glue
 	{
 		public var event:Smart = new Smart("event");
 		public var item:Smart = new Smart("item");
+		
+		public function setCurrentInstance(viewID:String, view:*):void
+		{
+			if (this.hasOwnProperty(viewID))
+				this[viewID] = view;
+				
+			else
+				throw new Error("Could not set current view instance: " + viewID + " to " + view + " on " + this);
+		}
 	}
 }

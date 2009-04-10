@@ -4,7 +4,12 @@ package net.seanhess.glue
 	import flash.utils.flash_proxy;
 	
 	import mx.core.IMXMLObject;
-	
+
+
+	/**	
+	 * I'm not sure I even need these any more, now that I'm using strong references 
+	 * everywhere!
+	 */
 	[Bindable]
 	dynamic public class Smart extends Proxy implements IMXMLObject
 	{

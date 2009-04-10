@@ -4,6 +4,7 @@ package net.seanhess.glue
 	import flash.utils.flash_proxy;
 	
 	import net.seanhess.bifff.behaviors.IBehavior;
+	import net.seanhess.bifff.scope.IScopeable;
 	import net.seanhess.bifff.scope.Scope;
 	import net.seanhess.bifff.utils.Invalidator;
 	import net.seanhess.bifff.utils.TargetRegistry;
@@ -15,12 +16,13 @@ package net.seanhess.glue
 	 * 
 	 * If the property is updated on the setter, it will update all the views  
 	 */
-	dynamic public class Inject extends Proxy implements IBehavior
+	dynamic public class Inject extends Proxy implements IBehavior, IScopeable
 	{
 		protected var values:Object = {};
 		protected var updates:Object = {};
 		protected var invalidator:Invalidator = new Invalidator(commit);
 		protected var _to:*;
+		[Bindable] public var parent:Scope;
 
 		public var registry:TargetRegistry = new TargetRegistry(apply);
 		
