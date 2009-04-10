@@ -14,6 +14,11 @@ package net.seanhess.glue
 		
 		public var type:String;
 		
+		public function Smart(type:String=null)
+		{
+			this.type = type;
+		}
+		
 		public static function setScope(scope:Object):void
 		{
 			Smart.scope = scope;
