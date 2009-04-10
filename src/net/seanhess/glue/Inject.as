@@ -20,21 +20,15 @@ package net.seanhess.glue
 		protected var values:Object = {};
 		protected var updates:Object = {};
 		protected var invalidator:Invalidator = new Invalidator(commit);
-		protected var _find:Find;
+		protected var _to:*;
 
 		public var registry:TargetRegistry = new TargetRegistry(apply);
 		
 		public function set target(value:*):void
 		{
-			if (_find)
-			{
-				for each (var target:* in _find.findAll(value))
-					registry.applyTargets(target);
-			}
-			else
-			{
-				registry.applyTargets(value);
-			}
+			if (_to) value = _to;
+			
+			registry.applyTargets(value);
 		}
 		
 		public function apply(target:*):void
@@ -46,10 +40,9 @@ package net.seanhess.glue
 			}
 		}
 		
-		public function set find(value:String):void
+		public function set to(value:*):void
 		{
-			_find = new Find();
-			_find.match = value;
+			_to = value;
 		}
 		
 		protected function updateProperty(target:*, property:String, value:*):void

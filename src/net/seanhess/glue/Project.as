@@ -7,8 +7,7 @@ package net.seanhess.glue
 	 */
 	public class Project extends BehaviorMap
 	{
-		public var subject:Smart = new Smart("subject");
 		public var event:Smart = new Smart("event");
-		public var currentTarget:Smart = new Smart("target");
+		public var item:Smart = new Smart("item");
 	}
 }

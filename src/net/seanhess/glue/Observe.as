@@ -9,30 +9,31 @@ package net.seanhess.glue
 	
 	[Event(name="call", type="flash.events.Event")] 
 	public class Observe extends EventDispatcher implements IBehavior
-	{
-		public var subject:IEventDispatcher;
+	{		
+		public var on:IEventDispatcher;
 		public var event:String;
-		public var method:String;
-		public var arguments:Array;
-		public var scope:Scope;
 		
 		public function set target(value:*):void
 		{
-			scope = new Scope();
-			scope.target = value;
+			apply(value);
+		}
+		
+		protected function apply(target:IEventDispatcher):void
+		{
+			var dispatcher:IEventDispatcher = target;
 			
-			var observe:Observe = this;
+			if (on) dispatcher = on;
 			
-			subject.addEventListener(event, function(event:Event):void {
-				// SCOPE // 
+			dispatcher.addEventListener(event, function(event:Event):void {
+
+				var scope:Scope = new Scope();
+				scope.item = target;
 				scope.event = event;
-				scope.subject = observe.subject;
 				Smart.setScope(scope);
 				
-//				var func:Function = value[method] as Function;
-//				func.apply(value, observe.arguments);
 				dispatchEvent(new Event("call"));
-			});	
+				
+			});
 		}
 	}
 }
