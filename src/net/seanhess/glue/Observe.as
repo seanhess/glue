@@ -15,7 +15,7 @@ package net.seanhess.glue
 		[Bindable] public var parent:Scope;
 		
 		public function apply(target:*):void
-		{
+		{			
 			var dispatcher:IEventDispatcher = target;
 			
 			if (on) 
@@ -24,9 +24,18 @@ package net.seanhess.glue
 				dispatcher = on;
 			}
 			
+			debug.log("[ √ ] Observe("+event+") - " + dispatcher);
+			
 			dispatcher.addEventListener(event, function(event:Event):void {
 
 				(parent.selector as Glue).setCurrentInstance(target);
+				
+				var message:String = "[ -> ] Observe("+event.type+") - " + event.target;
+				
+				if (on)
+					message += " -> " + (parent.selector as Glue);
+					
+				debug.log(message);
 
 				var scope:Scope = new Scope();
 				scope.item = target;
@@ -46,6 +55,11 @@ package net.seanhess.glue
 		public function get on():IEventDispatcher
 		{
 			return _on;
+		}
+		
+		public function get debug():Debug
+		{
+			return Debug.instance;
 		}
 	}
 }

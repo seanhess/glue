@@ -23,7 +23,7 @@ package net.seanhess.glue
 		{			
 			super.commit();
 			this.executor = new GlueExecutor();
+			Debug.instance.log("[ √ ] Project on " + target);
 		}
-		
 	}
 }
