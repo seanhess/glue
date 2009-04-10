@@ -5,5 +5,5 @@
 	<component class="net.seanhess.glue.Observe"/>
 	<component class="net.seanhess.glue.Route"/>
 	<component class="net.seanhess.glue.Smart"/>
-	<component class="net.seanhess.glue.Map"/>
+	<component class="net.seanhess.glue.Project"/>
 </componentPackage>

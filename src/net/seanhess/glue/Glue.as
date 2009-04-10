@@ -1,6 +1,7 @@
 package net.seanhess.glue
 {
-	import net.seanhess.bifff.core.ISelector;
+	import flash.utils.Dictionary;
+	
 	import net.seanhess.bifff.core.Selector;
 	
 	public class Glue extends Selector
