@@ -3,7 +3,6 @@ package net.seanhess.glue
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
-	import net.seanhess.bifff.behaviors.IBehavior;
 	import net.seanhess.bifff.scope.IScopeable;
 	import net.seanhess.bifff.scope.Scope;
 	import net.seanhess.bifff.utils.Invalidator;
@@ -16,7 +15,7 @@ package net.seanhess.glue
 	 * 
 	 * If the property is updated on the setter, it will update all the views  
 	 */
-	dynamic public class Inject extends Proxy implements IBehavior, IScopeable
+	dynamic public class Inject extends Proxy implements IGlueAction, IScopeable
 	{
 		protected var values:Object = {};
 		protected var updates:Object = {};
@@ -24,16 +23,15 @@ package net.seanhess.glue
 		protected var _to:*;
 		[Bindable] public var parent:Scope;
 
-		public var registry:TargetRegistry = new TargetRegistry(apply);
-		
-		public function set target(value:*):void
-		{
-			if (_to) value = _to;
-			
-			registry.applyTargets(value);
-		}
+		public var registry:TargetRegistry = new TargetRegistry(actuallyApply);
 		
 		public function apply(target:*):void
+		{
+			if (_to) target = _to;
+			registry.applyTargets(target);
+		}
+		
+		public function actuallyApply(target:*):void
 		{
 			for (var property:String in values)
 			{
@@ -42,7 +40,7 @@ package net.seanhess.glue
 			}
 		}
 		
-		public function set to(value:*):void
+		public function set target(value:*):void
 		{
 			_to = value;
 		}
@@ -56,7 +54,7 @@ package net.seanhess.glue
 			
 			catch (e:Error)
 			{
-				throw new Error("Could not inject property " + property + " to " + value + " on " + target);
+				throw new Error("Could not inject property: '" + property + "' with value: '" + value + "' on target: '" + target + "'");
 			}
 		}
 		

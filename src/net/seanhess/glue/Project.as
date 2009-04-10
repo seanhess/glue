@@ -18,5 +18,12 @@ package net.seanhess.glue
 			else
 				throw new Error("Could not set current view instance: " + viewID + " to " + view + " on " + this);
 		}
+		
+		override protected function commit():void
+		{			
+			super.commit();
+			this.executor = new GlueExecutor();
+		}
+		
 	}
 }

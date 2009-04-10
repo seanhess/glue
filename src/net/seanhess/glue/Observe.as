@@ -4,23 +4,17 @@ package net.seanhess.glue
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
-	import net.seanhess.bifff.behaviors.IBehavior;
 	import net.seanhess.bifff.scope.IScopeable;
 	import net.seanhess.bifff.scope.Scope;
 	
 	[Event(name="call", type="flash.events.Event")] 
-	public class Observe extends EventDispatcher implements IBehavior, IScopeable
+	public class Observe extends EventDispatcher implements IGlueAction, IScopeable
 	{		
 		private var _on:IEventDispatcher;
 		public var event:String;
 		[Bindable] public var parent:Scope;
 		
-		public function set target(value:*):void
-		{
-			apply(value);
-		}
-		
-		protected function apply(target:IEventDispatcher):void
+		public function apply(target:*):void
 		{
 			var dispatcher:IEventDispatcher = target;
 			
@@ -44,7 +38,7 @@ package net.seanhess.glue
 			});
 		}
 		
-		public function set on(value:IEventDispatcher):void
+		public function set target(value:IEventDispatcher):void
 		{
 			_on = value;
 		}
