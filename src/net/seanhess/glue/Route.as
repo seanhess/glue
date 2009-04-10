@@ -18,7 +18,12 @@ package net.seanhess.glue
 		{
 			if (_find)
 			{
-				for each (var target:* in _find.findAll(value))
+				var targets:Array = _find.findAll(value);
+				
+				if (targets.length == 0)
+					throw new Error("Could not find " + _find.match + " on " + value);
+					
+				for each (var target:* in targets)
 					apply(target);
 			}
 			else

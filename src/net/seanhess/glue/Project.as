@@ -9,6 +9,6 @@ package net.seanhess.glue
 	{
 		public var subject:Smart = new Smart("subject");
 		public var event:Smart = new Smart("event");
-		public var target:Smart = new Smart("target");
+		public var currentTarget:Smart = new Smart("target");
 	}
 }

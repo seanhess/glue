@@ -18,10 +18,20 @@ package net.seanhess.glue
 		{
 			var targets:Array;
 						
-			if (nodes == null)
-				nodes = parser.parseMatch(matchString);
+//			if (nodes == null)
+//				nodes = parser.parseMatch(matchString);
+//				
+//			targets = matcher.descendants(target, nodes);
+
+			if (target.hasOwnProperty(matchString))
+			{
+				var value:* = target[matchString];
 				
-			targets = matcher.descendants(target, nodes);
+				if (value)
+					targets = [value];
+				else
+					throw new Error("Value was undefined: " + matchString + " on " + target);
+			}
 			
 			return targets;				
 		}
@@ -29,6 +39,11 @@ package net.seanhess.glue
 		public function set match(value:String):void
 		{
 			matchString = value;
+		}
+		
+		public function get match():String
+		{
+			return matchString;
 		}
 	}
 }
