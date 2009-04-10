@@ -1,27 +1,27 @@
 package net.seanhess.glue
 {
-	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
 	
 	import mx.core.IMXMLObject;
 	
+	[Bindable]
 	dynamic public class Smart extends Proxy implements IMXMLObject
 	{
 		protected var _source:*;
-		
-		protected static var sources:Dictionary = new Dictionary(true);
+	
+		protected static var scope:Object;		
 		
 		public var type:String;
 		
-		public static function setSource(type:String, value:*):void
+		public static function setScope(scope:Object):void
 		{
-			sources[type] = value;
+			Smart.scope = scope;
 		}
 		
-		public static function getSource(type:String):*
+		public static function getScope():Object
 		{
-			return sources[type];
+			return Smart.scope;
 		}
 		
 		public function initialized(document:Object, id:String):void
@@ -36,7 +36,7 @@ package net.seanhess.glue
 		
 		public function get source():*
 		{
-			return (_source) ? _source : Smart.getSource(this.type);	
+			return (_source) ? _source : Smart.scope[type];	
 		}
 		
 		override flash_proxy function getProperty(name:*):* 
@@ -46,6 +46,7 @@ package net.seanhess.glue
 	    
 	    override flash_proxy function callProperty(name:*, ... rest):*
 	    {
+	    	var source:* = this.source;
 	    	return (source[name] as Function).apply(source, rest);
 	    }
 	}

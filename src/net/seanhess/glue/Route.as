@@ -5,12 +5,14 @@ package net.seanhess.glue
 	import flash.events.IEventDispatcher;
 	
 	import net.seanhess.bifff.behaviors.IBehavior;
+	import net.seanhess.bifff.scope.Scope;
 	
 	[Event(name="call", type="flash.events.Event")] 
 	public class Route extends EventDispatcher implements IBehavior
 	{		
 		public var event:String;
 		private var _find:Find;
+		public var scope:Scope;
 		
 		public function set target(value:*):void
 		{
@@ -38,7 +40,12 @@ package net.seanhess.glue
 		
 		protected function handler(event:Event):void
 		{
-			Smart.setSource("event", event);
+			// SMART // 
+			scope = new Scope();
+			scope.target = event.target;
+			scope.event = event;
+			Smart.setScope(scope);
+			
 			dispatchEvent(new Event("call"));
 		}
 	}

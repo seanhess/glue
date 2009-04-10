@@ -4,6 +4,7 @@ package net.seanhess.glue
 	import flash.utils.flash_proxy;
 	
 	import net.seanhess.bifff.behaviors.IBehavior;
+	import net.seanhess.bifff.scope.Scope;
 	import net.seanhess.bifff.utils.Invalidator;
 	import net.seanhess.bifff.utils.TargetRegistry;
 	
