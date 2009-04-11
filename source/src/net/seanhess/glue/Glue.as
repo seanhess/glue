@@ -34,7 +34,7 @@ package net.seanhess.glue
 			this.match = value.className;
 		}
 		
-		public function set instance(value:*):void
+		public function set target(value:*):void
 		{
 			if (value.hasOwnProperty("id") && value.hasOwnProperty("className")) // dynamic UIComponent...
 				view = value;
@@ -45,7 +45,7 @@ package net.seanhess.glue
 		public function setCurrentInstance(view:*):void
 		{
 			if (viewID)
-				(map as Project).setCurrentInstance(viewID, view);
+				(map as GlueMap).setCurrentInstance(viewID, view);
 		}
 		
 		override public function matches(target:*, root:*=null):Boolean
@@ -54,13 +54,17 @@ package net.seanhess.glue
 			{
 				return (target == _controller);
 			}
-			else
+			else if (match)
 			{
 				var matches:Boolean = super.matches(target, root);
 				
 				if (matches)
 					setCurrentInstance(target);
 				return matches;
+			}
+			else
+			{
+				throw new Error("Could not find target for glue: "+this+". Make sure target is set as an attribute, or as the first child");
 			}
 		}
 		
@@ -85,7 +89,7 @@ package net.seanhess.glue
 		{
 			if (value.length > 0 && !(value[0] is IGlueAction))
 			{
-				instance = value.shift();
+				target = value.shift();
 			}			
 			
 			super.actions = value;
