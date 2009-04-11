@@ -33,6 +33,8 @@ package net.seanhess.glue
 		
 		public function actuallyApply(target:*):void
 		{
+			debug.log("[ √ ] Inject - " + target);
+			
 			for (var property:String in values)
 			{
 				var value:* = values[property];
@@ -50,6 +52,7 @@ package net.seanhess.glue
 			try 
 			{
 				target[property] = value;
+				debug.log("[ -> ] Inject("+property+":"+value+") -> " + target);
 			}
 			
 			catch (e:Error)
@@ -70,5 +73,10 @@ package net.seanhess.glue
     			for (var property:String in updates)
     				updateProperty(target, property, values[property]);
 	    }
+	    
+	    public function get debug():Debug
+		{
+			return Debug.instance;
+		}
 	}
 }

@@ -16,7 +16,7 @@ package net.seanhess.glue
 		
 		public function apply(target:*):void
 		{			
-			var dispatcher:IEventDispatcher = target;
+			var dispatcher:IEventDispatcher = target as IEventDispatcher;
 			
 			if (on) 
 			{
@@ -25,6 +25,9 @@ package net.seanhess.glue
 			}
 			
 			debug.log("[ √ ] Observe("+event+") - " + dispatcher);
+			
+			if (dispatcher == null)
+				throw new Error("Target was not IEventDispatcher: " + target);
 			
 			dispatcher.addEventListener(event, function(event:Event):void {
 

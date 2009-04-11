@@ -34,6 +34,14 @@ package net.seanhess.glue
 			this.match = value.className;
 		}
 		
+		public function set instance(value:*):void
+		{
+			if (value.hasOwnProperty("id") && value.hasOwnProperty("className")) // dynamic UIComponent...
+				view = value;
+			else
+				controller = value;	
+		}
+		
 		public function setCurrentInstance(view:*):void
 		{
 			if (viewID)
@@ -71,6 +79,16 @@ package net.seanhess.glue
 				var event:CreationComplete = new CreationComplete(_controller);
 				mapTarget.dispatchEvent(event);
 			}
+		}
+		
+		override public function set actions(value:Array):void
+		{
+			if (value.length > 0 && !(value[0] is IGlueAction))
+			{
+				instance = value.shift();
+			}			
+			
+			super.actions = value;
 		}
 	}
 }
