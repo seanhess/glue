@@ -14,6 +14,8 @@ package net.seanhess.glue
 		public var event:String;
 		[Bindable] public var parent:Scope;
 		
+		public var enableDebug:Boolean = true;
+		
 		public function apply(target:*):void
 		{			
 			var dispatcher:IEventDispatcher = target as IEventDispatcher;
@@ -24,7 +26,7 @@ package net.seanhess.glue
 				dispatcher = on;
 			}
 			
-			debug.log("[ √ ] Observe("+event+") - " + dispatcher);
+			if (enableDebug) debug.log("[ √ ] Observe("+event+") - " + dispatcher);
 			
 			if (dispatcher == null)
 				throw new Error("Target was not IEventDispatcher: " + target);
@@ -38,7 +40,7 @@ package net.seanhess.glue
 				if (on)
 					message += " -> " + (parent.selector as Glue);
 					
-				debug.log(message);
+				if (enableDebug) debug.log(message);
 
 				var scope:Scope = new Scope();
 				scope.item = target;

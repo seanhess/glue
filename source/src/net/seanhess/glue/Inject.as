@@ -22,6 +22,8 @@ package net.seanhess.glue
 		protected var invalidator:Invalidator = new Invalidator(commit);
 		protected var _to:*;
 		[Bindable] public var parent:Scope;
+		
+		public var enableDebug:Boolean = true;
 
 		public var registry:TargetRegistry = new TargetRegistry(actuallyApply);
 		
@@ -33,7 +35,7 @@ package net.seanhess.glue
 		
 		public function actuallyApply(target:*):void
 		{
-			debug.log("[ √ ] Inject - " + target);
+			if (enableDebug) debug.log("[ √ ] Inject - " + target);
 			
 			for (var property:String in values)
 			{
@@ -52,7 +54,7 @@ package net.seanhess.glue
 			try 
 			{
 				target[property] = value;
-				debug.log("[ -> ] Inject("+property+":"+value+") -> " + target);
+				if (enableDebug) debug.log("[ -> ] Inject("+property+":"+value+") -> " + target);
 			}
 			
 			catch (e:Error)

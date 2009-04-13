@@ -1,6 +1,7 @@
 package net.seanhess.glue
 {
 	import flash.events.IEventDispatcher;
+	import flash.utils.getQualifiedClassName;
 	
 	import mx.core.UIComponent;
 	
@@ -13,6 +14,7 @@ package net.seanhess.glue
 	public class Glue extends Selector
 	{
 		public var _controller:*;
+		private var _controllerClass:String; 
 		private var mapTarget:IEventDispatcher;
 		private var map:BehaviorMap;
 		private var invalidator:Invalidator = new Invalidator(commit);
@@ -26,6 +28,8 @@ package net.seanhess.glue
 		public function set controller(value:*):void
 		{
 			_controller = value;
+			var name:String = getQualifiedClassName(value);
+			_controllerClass = name;
 		}
 		
 		public function set view(value:UIComponent):void
@@ -52,7 +56,8 @@ package net.seanhess.glue
 		{
 			if (_controller)
 			{
-				return (target == _controller);
+				var targetClass:String = getQualifiedClassName(target);
+				return (targetClass == _controllerClass);
 			}
 			else if (match)
 			{
