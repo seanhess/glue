@@ -3,12 +3,38 @@
 
 	<mx:Script>
 		<![CDATA[
-			import books.model.Book;
 			import mx.events.FlexEvent;
 		]]>
 	</mx:Script>
 	
-	<!-- CONTROLLERS -->
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 
+		CONTROLLERS 
+		
+		Controllers should be specified as the first child of the Glue
+		tag. This automatically sets the controller property for you. 
+		Alternatively, you can specify the controller elsewhere, and 
+		write <Glue controller="{myController}"/>. If you put a
+		controller as the first parameter, it actually creates it and
+		uses it, unlike views (see below).
+	
+		Note that I created a glue for library even though 
+	 	I didn't define any rules. I'm just doing this for consistency
+	 	
+	 	Browse and search use the inject tags to pull their books
+	 	and authors lists from the library. 
+	 	
+	 	BEST PRACTICE: Only specify injections and observes that set or 
+	 	call something on the controller in question. 
+	-->
+	
 	<Glue>
 		<control:Library id="library"/>	
 	</Glue>
@@ -26,14 +52,85 @@
 		/>
 	</Glue>
 	
-	<!-- VIEWS -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 
+		VIEWS 
+		
+		There should normally be one Glue for each view you care about. 
+		It will glue every view of that type, so if you use a component, 
+		instead of a view, all of them will get the same glue. 
+		
+		The View is declared as the first child of the glue. If you do 
+		this, it throws the one you create away, and replaces it with the
+		currently matched view. It sets the selector's match property to
+		the classname of the view for you. In other words, this is some 
+		magic to get you autocompletion, but the instance you are working
+		on will always be replaced with the right one (if you follow 
+		conventions). 
+				
+		If you want to target a specific instance of a component, you 
+		can use Bifff's selectors (bifff.seanhess.net). For example, you
+		could say <Glue match="ResultsPage#main"> and it would target the
+		results page with an id of main. 
+		
+	 	BEST PRACTICE: Only specify injections and observes that set or 
+	 	call something on the view in question. Views should never target
+	 	other views. The target property is to say which controller to
+	 	listen to, or to drill into an unencapsulated view.  
+		
+		
+		
+		================================================================
+		
+		MainView
+		
+		I am using it's creation complete to initialize the app
+		MainView has some encapsulated events, so we'll use the constants
+		instead of typing the event names. 
+		
+		==================================================================
+		
+		MainPagesView
+		
+		Notice how I am reusing the ResultsPage component and injecting
+		different results into both browse and search
+		
+		You can encapsulate views as much as you want. If you don't, 
+		you can reach into them using the target attribute, like I've 
+		done with back, browseResults and searchResults. 
+		
+		I set up observe tags to listen to the view (like the back 
+		click handler), and to respond to a controller action
+		in the view. The second usage makes it so I can call the 
+		controller from anywhere, and this view will get updated. 
+		
+		It should be considered bad practice to target another view
+		with an observe tag. Any injector target should be something
+		inside the view.
+		
+		Play around with it. Notice the auto-complete!
+		
+		Inject will throw a runtime error if the target doesn't 
+		have the runtime property it is trying to inject to. 
+	-->
 	<Glue>
 		<view:MainView id="mainView"/>
 		<Observe event="{FlexEvent.CREATION_COMPLETE}" call="library.mock()"/>
 		<Observe event="{MainView.SEARCH}" call="browse.showSearch()"/>
 		<Observe event="{MainView.BROWSE}" call="browse.showBrowse()"/>
 	</Glue>
-	
+
 	<Glue>
 		<view:MainPagesView id="pages"/>
 		
@@ -58,6 +155,9 @@
 		<Observe event="{ResultsPage.SELECT_AUTHOR}" call="browse.showAuthor(results.selectedAuthor)"/>
 	</Glue>
 	
+	<!-- 
+		I could use MouseEvent.click instead of click here if I cared
+	-->
 	<Glue>
 		<pages:BookPage id="bookView"/>
 		<Inject book="{browse.currentBook}"/>
