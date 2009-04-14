@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:pages="books.view.pages.*" xmlns:controls="books.view.controls.*">
+	
+	<mx:Script>
+		<![CDATA[
+			public function showBrowse():void
+			{
+				slide.reset(browseResults);
+			}
+			
+			public function showSearch():void
+			{
+				slide.show(search);
+			}
+			
+			public function showBook():void
+			{
+				slide.show(book);
+			}
+			
+			public function showAuthor():void
+			{
+				slide.show(author);
+			}
+			
+			public function showSearchResults():void
+			{
+				slide.show(searchResults)	
+			}
+			
+			public function goBack():void
+			{
+				slide.hide();
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:HBox>
+		<mx:Button id="back" label="Back"/>
+	</mx:HBox>
+	
+	<controls:SimpleSlide id="slide" width="100%" height="100%">
+		
+		<pages:ResultsPage id="browseResults"/>
+		
+		<pages:ResultsPage id="searchResults" visible="false"/>
+		
+		<pages:SearchPage id="search" visible="false"/>
+		
+		<pages:BookPage id="book" visible="false"/>
+		
+		<pages:AuthorPage id="author" visible="false"/>
+		
+	</controls:SimpleSlide>
+
+</mx:VBox>

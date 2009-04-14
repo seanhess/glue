@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:model="books.model.*" xmlns:mock="books.model.mock.*">
+	
+	<mx:ArrayCollection id="books">
+		<model:Book title="Atheism Among the People" author="{edward}"/>
+		<model:Book title="The Brick Moon and Other Stories" author="{edward}"/>
+		<model:Book title="How to Do It" author="{edward}"/>
+		<model:Book title="Discovery of Muscovy" author="{rich}"/>
+		<model:Book title="Twilight" author="{meyer}"/>
+		<model:Book title="New Moon" author="{meyer}"/>
+		<model:Book title="The Host" author="{meyer}"/>
+	</mx:ArrayCollection>
+	
+	<mx:ArrayCollection id="authors">
+		<model:Author id="rich" name="Richard Hakluyt"/>
+		<model:Author id="edward" name="Edward Everett Hale"/>
+		<model:Author id="meyer" name="Stephanie Meyer"/>
+	</mx:ArrayCollection>
+	
+</mx:Object>

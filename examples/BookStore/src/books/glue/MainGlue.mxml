@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*">
+
+	<mx:Script>
+		<![CDATA[
+			import books.model.Book;
+			import mx.events.FlexEvent;
+		]]>
+	</mx:Script>
+	
+	<!-- CONTROLLERS -->
+	<Glue>
+		<control:Library id="library"/>	
+	</Glue>
+	
+	<Glue>
+		<control:Browse id="browse"/>	
+		<Inject books="{library.books}"/>
+	</Glue>
+	
+	<Glue>
+		<control:Search id="search"/>
+		<Inject 
+			allBooks="{library.books}"
+			allAuthors="{library.authors}"
+		/>
+	</Glue>
+	
+	<!-- VIEWS -->
+	<Glue>
+		<view:MainView id="mainView"/>
+		<Observe event="{FlexEvent.CREATION_COMPLETE}" call="library.mock()"/>
+		<Observe event="{MainView.SEARCH}" call="browse.showSearch()"/>
+		<Observe event="{MainView.BROWSE}" call="browse.showBrowse()"/>
+	</Glue>
+	
+	<Glue>
+		<view:MainPagesView id="pages"/>
+		
+		<Inject target="{pages.back}" visible="{browse.backEnabled}"/>
+		<Inject target="{pages.browseResults}" books="{library.books}" authors="{library.authors}"/>
+		<Inject target="{pages.searchResults}" books="{search.bookResults}" authors="{search.authorResults}"/>
+		
+		<Observe target="{pages.back}" event="click" call="browse.goBack()"/>
+		
+		<Observe target="{browse}" event="goBack" call="pages.goBack()"/>
+		<Observe target="{browse}" event="showSearch" call="pages.showSearch()"/>
+		<Observe target="{browse}" event="showBrowse" call="pages.showBrowse()"/>
+		<Observe target="{browse}" event="showBook" call="pages.showBook()"/>
+		<Observe target="{browse}" event="showAuthor" call="pages.showAuthor()"/>
+		
+		<Observe target="{search}" event="search" call="pages.showSearchResults()"/>
+	</Glue>
+	
+	<Glue>
+		<pages:ResultsPage id="results"/>
+		<Observe event="{ResultsPage.SELECT_BOOK}" call="browse.showBook(results.selectedBook)"/>
+		<Observe event="{ResultsPage.SELECT_AUTHOR}" call="browse.showAuthor(results.selectedAuthor)"/>
+	</Glue>
+	
+	<Glue>
+		<pages:BookPage id="bookView"/>
+		<Inject book="{browse.currentBook}"/>
+		<Observe target="{bookView.authorButton}" event="click" call="browse.showAuthor(bookView.book.author)"/>
+	</Glue>
+	
+	<Glue>
+		<pages:AuthorPage id="authorView"/>	
+		<Inject author="{browse.currentAuthor}"/>
+		<Observe target="{authorView.booksList}" event="itemClick" call="browse.showBook(authorView.booksList.selectedItem as Book)"/>
+	</Glue>
+	
+	<Glue>
+		<pages:SearchPage id="searchView"/>
+		<Observe target="{searchView.searchBtn}" event="click" call="search.search(searchView.input.text)"/>
+	</Glue>
+
+</GlueMap>

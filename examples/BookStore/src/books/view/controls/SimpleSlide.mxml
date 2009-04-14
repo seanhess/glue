@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns="http://bifff.seanhess.net/2009" 
+	styleName="SimpleSlide"
+	resizeEffect="{resize}"
+	horizontalScrollPolicy="off"
+	verticalScrollPolicy="off"
+	>
+	
+	<mx:Metadata>
+		[Event(name="childChange", type="flash.events.Event")]
+	</mx:Metadata>
+	
+	<!-- Horizontal -->
+	<mx:Move id="slideIn" xFrom="{this.width}" xTo="0"/>
+	<mx:Move id="slideOut" xTo="{this.width}" xFrom="0"/>
+	<mx:Move id="slideOutLeft" xFrom="0" xTo="{-this.width}"/>
+	<mx:Move id="slideInLeft" xTo="0" xFrom="{-this.width}"/>
+	
+	<mx:Resize id="resize"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			import mx.effects.Effect;
+			import mx.core.UIComponent;
+			import mx.core.Container;
+			
+			[Bindable] public var hasPrevious:Boolean = false;
+			
+			private var current:UIComponent;
+			
+			private var previous:Array = [];
+			
+			override protected function createChildren():void
+			{
+				super.createChildren();
+				
+				for each (var child:UIComponent in this.getChildren())
+				{
+					child.visible = false;
+					child.includeInLayout = false;
+				}
+				
+				current = getChildAt(0) as UIComponent;
+				current.visible = true;
+				current.includeInLayout = true;
+			}
+			
+			public function show(next:UIComponent, back:UIComponent=null):void
+			{
+				back = back || current;
+				
+				outLeft();
+				previous.push(back);
+				current = next;
+				inRight();
+				
+				hasPrevious = true;
+			}
+			
+			public function hide(num:int=1):void
+			{
+				for (var i:int = 0; i<num; i++)
+				{
+					outRight();
+					var back:UIComponent = previous.pop();
+					current = back;
+					inLeft();
+				}
+				
+				hasPrevious = (previous.length > 0);
+			}
+			
+			/**
+			 * Changes back to a view (using the back animation) and resets the history
+			 */
+			public function reset(current:UIComponent):void
+			{
+				outRight();
+				this.current = current;
+				inLeft();
+				
+				hasPrevious = false;				
+			}
+			
+			private function outLeft():void
+			{
+				current.setStyle("hideEffect", slideOutLeft);
+				current.visible = false; 
+				current.includeInLayout = false;
+				current.setStyle("hideEffect", null);
+			}
+			
+			private function inRight():void
+			{
+				current.setStyle("showEffect", slideIn);
+				current.visible = true;
+				current.includeInLayout = true;
+				current.setStyle("showEffect", null);
+			}
+			
+			private function outRight():void
+			{
+				current.setStyle("hideEffect", slideOut);
+				current.visible = false;
+				current.includeInLayout = false;
+				current.setStyle("hideEffect", null);
+			}
+			
+			private function inLeft():void
+			{
+				current.setStyle("showEffect", slideInLeft);
+				current.visible = true;
+				current.includeInLayout = true;
+				current.setStyle("showEffect", null);
+			}
+		]]>
+	</mx:Script>
+	
+</mx:Canvas>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" width="600" height="400" layout="vertical" title="Bookstore" xmlns:view="books.view.*">
+	
+	<mx:Script>
+		<![CDATA[
+			public static const BROWSE:String = "browse";
+			public static const SEARCH:String = "search";
+		
+			private function onClickBar():void
+			{
+				var type:String = (buttons.selectedIndex == 0) ? BROWSE : SEARCH;
+				dispatchEvent(new Event(type));
+			}
+		]]>
+	</mx:Script>
+	
+	<view:MainPagesView/>
+	
+	<mx:ControlBar>
+		<mx:ToggleButtonBar id="buttons" itemClick="onClickBar()">
+			<mx:dataProvider>
+				<mx:String>Browse</mx:String>	
+				<mx:String>Search</mx:String>
+			</mx:dataProvider>
+		</mx:ToggleButtonBar>
+	</mx:ControlBar>
+
+</mx:TitleWindow>

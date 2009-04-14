@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" label="Browse" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:controls="books.view.controls.*">
+	<mx:Script>
+		<![CDATA[
+			import books.model.Author;
+			import books.model.Book;
+			import mx.collections.IList;
+
+			public static const SELECT_BOOK:String = "selectBook";
+			public static const SELECT_AUTHOR:String = "selectAuthor";
+
+			[Bindable] public var books:IList;
+			[Bindable] public var authors:IList;
+			
+			public var selectedBook:Book;
+			public var selectedAuthor:Author;
+			
+			private function onSelectBook():void
+			{
+				selectedBook = booksList.selectedItem as Book;
+				dispatchEvent(new Event(SELECT_BOOK));
+			}
+			
+			private function onSelectAuthor():void
+			{
+				selectedAuthor = authorsList.selectedItem as Author;
+				dispatchEvent(new Event(SELECT_AUTHOR));
+			}
+		]]>
+	</mx:Script>
+
+	<mx:HBox>
+		<mx:VBox>
+			<mx:Label fontSize="24" text="Books"/>
+			<mx:List id="booksList" dataProvider="{books}" itemClick="onSelectBook()"/>
+		</mx:VBox>
+		<mx:VBox>
+			<mx:Label fontSize="24" text="Authors"/>
+			<mx:List id="authorsList" dataProvider="{authors}" itemClick="onSelectAuthor()"/>
+		</mx:VBox>
+	</mx:HBox>
+
+</mx:Canvas>

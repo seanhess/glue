@@ -32,10 +32,15 @@ package net.seanhess.glue
 			_controllerClass = name;
 		}
 		
+		/**
+		 * If you set the view, Glue will replace the instance in the map
+		 * with the current one. It also sets "match" to grab that view
+		 * when it finds it, unless it is already set
+		 */
 		public function set view(value:UIComponent):void
 		{
 			viewID = value.id;
-			this.match = value.className;
+			this.match = this.match || value.className;
 		}
 		
 		public function set target(value:*):void

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Form xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="#FFFFFF" width="100%" height="100%">
+	
+	<mx:Script>
+		<![CDATA[
+			import books.model.Book;
+			
+			[Bindable] public var book:Book;
+		]]>
+	</mx:Script>
+	
+	<mx:FormItem label="Title:">
+		<mx:Label text="{book.title}"/>
+	</mx:FormItem>
+	<mx:FormItem label="Author:">
+		<mx:Button id="authorButton" label="{book.author}"/>	
+	</mx:FormItem>
+	
+</mx:Form>

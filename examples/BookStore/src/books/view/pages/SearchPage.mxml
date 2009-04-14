@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" label="Search" xmlns:view="books.view.*" xmlns:controls="books.view.controls.*" xmlns:browse="books.view.browse.*">
+	<mx:Form>
+		<mx:FormItem label="Search:">
+			<mx:TextInput id="input"/>
+		</mx:FormItem>
+		<mx:Button id="searchBtn" label="submit"/>
+	</mx:Form>
+</mx:VBox>
