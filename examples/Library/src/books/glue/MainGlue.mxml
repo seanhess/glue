@@ -3,6 +3,7 @@
 
 	<mx:Script>
 		<![CDATA[
+			import books.model.Book;
 			import mx.events.FlexEvent;
 		]]>
 	</mx:Script>
