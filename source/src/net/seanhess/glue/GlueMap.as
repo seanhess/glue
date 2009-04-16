@@ -1,6 +1,7 @@
 package net.seanhess.glue
 {
 	import net.seanhess.bifff.core.BehaviorMap;
+	import net.seanhess.bifff.utils.Debug;
 	
 	/**
 	 * So, how do I know when to actually execute? (Timer .... )

@@ -5,6 +5,7 @@ package net.seanhess.glue
 	
 	import net.seanhess.bifff.scope.IScopeable;
 	import net.seanhess.bifff.scope.Scope;
+	import net.seanhess.bifff.utils.Debug;
 	import net.seanhess.bifff.utils.Invalidator;
 	import net.seanhess.bifff.utils.TargetRegistry;
 	

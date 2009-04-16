@@ -6,6 +6,7 @@ package net.seanhess.glue
 	
 	import net.seanhess.bifff.scope.IScopeable;
 	import net.seanhess.bifff.scope.Scope;
+	import net.seanhess.bifff.utils.Debug;
 	
 	[Event(name="call", type="flash.events.Event")] 
 	public class Observe extends EventDispatcher implements IGlueAction, IScopeable

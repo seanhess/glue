@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <componentPackage>    
-	<component class="net.seanhess.glue.Debug"/>
 	<component class="net.seanhess.glue.Inject"/>
 	<component class="net.seanhess.glue.Glue"/>
 	<component class="net.seanhess.glue.IGlueAction"/>
