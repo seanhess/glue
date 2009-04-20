@@ -10,11 +10,10 @@ package net.seanhess.glue
 	import net.seanhess.bifff.utils.TargetRegistry;
 	
 	/**
-	 * Sets styles (setStyle) and properties. 
+	 * Injects properties into controllers and views from a controller. 
 	 * 
-	 * Can be used for setter-based Dependency Injection
-	 * 
-	 * If the property is updated on the setter, it will update all the views  
+	 * Usage: <Inject myProperty="{mycontroller.value}"/>
+	 * Usage: <Inject child="{myView.list}" dataProvider="{mycontroller.list}"/>
 	 */
 	dynamic public class Inject extends Proxy implements IGlueAction, IScopeable
 	{
@@ -45,7 +44,16 @@ package net.seanhess.glue
 			}
 		}
 		
-		public function set target(value:*):void
+		/**
+		 * The child property will have the inject tag target some
+		 * component within your view. It should only ever be set 
+		 * to something within the view you are currently gluing. 
+		 * 
+		 * You should usually NOT set this property, but make 
+		 * public properties or setters on your view that your 
+		 * sub components can bind to. 
+		 */
+		public function set child(value:*):void
 		{
 			_to = value;
 		}

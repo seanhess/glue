@@ -127,33 +127,33 @@
 	-->
 	<Glue>
 		<view:MainView id="mainView"/>
-		<Observe event="{FlexEvent.CREATION_COMPLETE}" call="library.mock()"/>
-		<Observe event="{MainView.SEARCH}" call="browse.showSearch()"/>
-		<Observe event="{MainView.BROWSE}" call="browse.showBrowse()"/>
+		<Route event="{FlexEvent.CREATION_COMPLETE}" call="library.mock()"/>
+		<Route event="{MainView.SEARCH}" call="browse.showSearch()"/>
+		<Route event="{MainView.BROWSE}" call="browse.showBrowse()"/>
 	</Glue>
 
 	<Glue>
 		<view:MainPagesView id="pages"/>
 		
-		<Inject target="{pages.back}" visible="{browse.backEnabled}"/>
-		<Inject target="{pages.browseResults}" books="{library.books}" authors="{library.authors}"/>
-		<Inject target="{pages.searchResults}" books="{search.bookResults}" authors="{search.authorResults}"/>
+		<Inject child="{pages.back}" visible="{browse.backEnabled}"/>
+		<Inject child="{pages.browseResults}" books="{library.books}" authors="{library.authors}"/>
+		<Inject child="{pages.searchResults}" books="{search.bookResults}" authors="{search.authorResults}"/>
 		
-		<Observe target="{pages.back}" event="click" call="browse.goBack()"/>
+		<Route child="{pages.back}" event="click" call="browse.goBack()"/>
 		
-		<Observe target="{browse}" event="goBack" call="pages.goBack()"/>
-		<Observe target="{browse}" event="showSearch" call="pages.showSearch()"/>
-		<Observe target="{browse}" event="showBrowse" call="pages.showBrowse()"/>
-		<Observe target="{browse}" event="showBook" call="pages.showBook()"/>
-		<Observe target="{browse}" event="showAuthor" call="pages.showAuthor()"/>
+		<Observe controller="{browse}" event="goBack" call="pages.goBack()"/>
+		<Observe controller="{browse}" event="showSearch" call="pages.showSearch()"/>
+		<Observe controller="{browse}" event="showBrowse" call="pages.showBrowse()"/>
+		<Observe controller="{browse}" event="showBook" call="pages.showBook()"/>
+		<Observe controller="{browse}" event="showAuthor" call="pages.showAuthor()"/>
 		
-		<Observe target="{search}" event="search" call="pages.showSearchResults()"/>
+		<Observe controller="{search}" event="search" call="pages.showSearchResults()"/>
 	</Glue>
 	
 	<Glue>
 		<pages:ResultsPage id="results"/>
-		<Observe event="{ResultsPage.SELECT_BOOK}" call="browse.showBook(results.selectedBook)"/>
-		<Observe event="{ResultsPage.SELECT_AUTHOR}" call="browse.showAuthor(results.selectedAuthor)"/>
+		<Route event="{ResultsPage.SELECT_BOOK}" call="browse.showBook(results.selectedBook)"/>
+		<Route event="{ResultsPage.SELECT_AUTHOR}" call="browse.showAuthor(results.selectedAuthor)"/>
 	</Glue>
 	
 	<!-- 
@@ -162,18 +162,18 @@
 	<Glue>
 		<pages:BookPage id="bookView"/>
 		<Inject book="{browse.currentBook}"/>
-		<Observe target="{bookView.authorButton}" event="click" call="browse.showAuthor(bookView.book.author)"/>
+		<Route child="{bookView.authorButton}" event="click" call="browse.showAuthor(bookView.book.author)"/>
 	</Glue>
 	
 	<Glue>
 		<pages:AuthorPage id="authorView"/>	
 		<Inject author="{browse.currentAuthor}"/>
-		<Observe target="{authorView.booksList}" event="itemClick" call="browse.showBook(authorView.booksList.selectedItem as Book)"/>
+		<Route child="{authorView.booksList}" event="itemClick" call="browse.showBook(authorView.booksList.selectedItem as Book)"/>
 	</Glue>
 	
 	<Glue>
 		<pages:SearchPage id="searchView"/>
-		<Observe target="{searchView.searchBtn}" event="click" call="search.search(searchView.input.text)"/>
+		<Route child="{searchView.searchBtn}" event="click" call="search.search(searchView.input.text)"/>
 	</Glue>
 
 </GlueMap>

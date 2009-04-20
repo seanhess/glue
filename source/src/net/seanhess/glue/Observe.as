@@ -8,6 +8,12 @@ package net.seanhess.glue
 	import net.seanhess.bifff.scope.Scope;
 	import net.seanhess.bifff.utils.Debug;
 	
+	/**
+	 * Usage: <Observe controller="{myController}" event="eventType" call="me.doAction()"/>
+	 * 
+	 * Use this tag to listen to events fired from a controller, and respond to them with 
+	 * your current view or controller.
+	 */
 	[Event(name="call", type="flash.events.Event")] 
 	public class Observe extends EventDispatcher implements IGlueAction, IScopeable
 	{		
@@ -53,7 +59,7 @@ package net.seanhess.glue
 			});
 		}
 		
-		public function set target(value:IEventDispatcher):void
+		public function set controller(value:IEventDispatcher):void
 		{
 			_on = value;
 		}
