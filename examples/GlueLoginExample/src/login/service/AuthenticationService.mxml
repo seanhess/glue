@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<events:EventDispatcher 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:events="flash.events.*"
+	>
+
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			public function login(username:String, password:String):void
+			{
+				loginService.send({
+					username:username, 
+					password:password
+				});
+			}
+			
+			private function onLogin(event:ResultEvent):void
+			{
+				dispatchEvent(new Event("login"));
+			}
+			
+			public function logout():void
+			{
+				logoutService.send();
+			}	
+			
+			private function onLogout(event:ResultEvent):void
+			{
+				dispatchEvent(new Event("logout"));
+			}
+		]]>
+	</mx:Script>
+
+	<mx:HTTPService id="loginService" url="../service/login.php" resultFormat="object" result="onLogin(event)"/>
+	<mx:HTTPService id="logoutService" url="../service/logout.php" resultFormat="object" result="onLogout(event)"/>
+
+</events:EventDispatcher>

@@ -11,6 +11,7 @@ package net.seanhess.glue
 	import net.seanhess.bifff.scope.Scope;
 	import net.seanhess.bifff.utils.Invalidator;
 	
+	[DefaultProperty("stuff")]
 	public class Glue extends Selector
 	{
 		public var _controller:*;
@@ -95,14 +96,15 @@ package net.seanhess.glue
 			}
 		}
 		
-		override public function set actions(value:Array):void
+		[ArrayElementType("Object")]
+		public function set stuff(value:Array):void
 		{
 			if (value.length > 0 && !(value[0] is IGlueAction))
 			{
 				target = value.shift();
 			}			
 			
-			super.actions = value;
+			actions = value;
 		}
 	}
 }

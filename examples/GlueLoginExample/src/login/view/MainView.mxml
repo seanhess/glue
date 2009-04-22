@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+
+	<mx:Metadata>
+		[Event("login")]
+		[Event("logout")]
+	</mx:Metadata>
+
+	<mx:Script>
+		<![CDATA[
+			import login.model.event.LoginExample;
+	
+			[Bindable] public var loginVisible:Boolean = true;
+			[Bindable] public var userEmail:String;
+			
+			[Bindable] public var wait:Boolean = false;
+			[Bindable] public var failed:Boolean = false;
+			
+			public function hideLogin():void
+			{
+				loginVisible = false;
+			}
+			
+			public function showLogin():void
+			{
+				loginVisible = true;
+				wait = false;
+				failed = false;
+				usernameField.text = "";
+				passwordField.text = "";
+			}
+			
+			public function failLogin():void
+			{
+				failed = true;
+				wait = false;
+			}
+			
+			private function onLoginClick():void
+			{
+				wait = true;
+				dispatchEvent(new Event(LoginExample.LOGIN));
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:String id="username">{usernameField.text}</mx:String>
+	<mx:String id="password">{passwordField.text}</mx:String>
+	
+	<!-- The main view: doesn't really do anything -->
+	<mx:Panel width="400" height="300" horizontalCenter="0" verticalCenter="0">
+		<mx:FormItem label="User Email:" fontSize="24">
+			<mx:Label fontSize="24" text="{userEmail}"/>
+		</mx:FormItem>
+					
+		<mx:ControlBar>
+			<mx:Button label="Logout" click="dispatchEvent(new Event(LoginExample.LOGOUT))"/>
+		</mx:ControlBar>
+	</mx:Panel>
+	
+	<!-- The login overlay -->
+	<mx:Canvas backgroundAlpha=".9" backgroundColor="#000000" visible="{loginVisible}" width="100%" height="100%">
+		<mx:Panel horizontalCenter="0" verticalCenter="0" enabled="{!wait}">
+			<mx:Form>
+				<mx:FormItem label="Username">
+					<mx:TextInput id="usernameField" toolTip="username: bob"/>
+				</mx:FormItem>
+				
+				<mx:FormItem label="Password">
+					<mx:TextInput id="passwordField" displayAsPassword="true" toolTip="password: bob"/>
+				</mx:FormItem>
+				
+				<mx:Canvas width="100%">
+					<mx:Button label="{(wait) ? 'Please wait...' : 'Login'}" click="onLoginClick()"/>
+					<mx:Label fontWeight="bold" text="Please Try Again" color="#FF0000" right="0" visible="{failed}"/>				
+				</mx:Canvas>
+			</mx:Form>
+		</mx:Panel>
+	</mx:Canvas>
+	
+</mx:Canvas>
