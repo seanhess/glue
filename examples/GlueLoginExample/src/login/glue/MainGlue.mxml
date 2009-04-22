@@ -7,11 +7,13 @@
 		]]>
 	</mx:Script>
 	
+	<!-- you can switch out which service to use on line 15 -->
 	<service:MockAuthenticationService id="mockAuthService"/>
 	<service:AuthenticationService id="authService"/>
 	
 	<Glue>
-		<control:Authentication id="auth" authService="{mockAuthService}"/>
+		<control:Authentication id="auth"/>
+		<Inject authService="{mockAuthService}"/>
 	</Glue>
 	
 	<Glue>

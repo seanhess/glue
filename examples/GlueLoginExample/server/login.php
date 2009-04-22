@@ -8,10 +8,10 @@
 	
 	if ($_GET['username'] == "bob" && $_GET['password'] == "bob")
 	{
-		echo "{'authenticated':true, 'email':'bob@bob.com'}";
+		echo "<response authenticated='true' email='bob@myserver.com'/>";
 		$_SESSION['authenticated'] = true;
 	}
 	
 	else
-		echo "{'authenticated':false}";
+		echo "<response authenticated='false'/>";
 ?>

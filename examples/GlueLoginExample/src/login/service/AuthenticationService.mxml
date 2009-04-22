@@ -2,11 +2,27 @@
 <events:EventDispatcher 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:events="flash.events.*"
+	implements="login.service.IAuthenticationService"
 	>
 
 	<mx:Script>
 		<![CDATA[
+			import login.model.event.LoginExample;
 			import mx.rpc.events.ResultEvent;
+			
+			private var _authenticated:Boolean;
+			private var _email:String;
+			
+			public function get authenticated():Boolean
+			{
+				return _authenticated;
+			}
+			
+			public function get email():String
+			{
+				return _email;				
+			}
+			
 			public function login(username:String, password:String):void
 			{
 				loginService.send({
@@ -17,7 +33,9 @@
 			
 			private function onLogin(event:ResultEvent):void
 			{
-				dispatchEvent(new Event("login"));
+				_authenticated = event.result.response.authenticated;
+				_email = event.result.response.email;
+				dispatchEvent(new Event(LoginExample.LOGIN));
 			}
 			
 			public function logout():void
@@ -27,12 +45,12 @@
 			
 			private function onLogout(event:ResultEvent):void
 			{
-				dispatchEvent(new Event("logout"));
+				dispatchEvent(new Event(LoginExample.LOGOUT));
 			}
 		]]>
 	</mx:Script>
 
-	<mx:HTTPService id="loginService" url="../service/login.php" resultFormat="object" result="onLogin(event)"/>
-	<mx:HTTPService id="logoutService" url="../service/logout.php" resultFormat="object" result="onLogout(event)"/>
+	<mx:HTTPService id="loginService" url="../server/login.php" resultFormat="object" result="onLogin(event)"/>
+	<mx:HTTPService id="logoutService" url="../server/logout.php" resultFormat="object" result="onLogout(event)"/>
 
 </events:EventDispatcher>
