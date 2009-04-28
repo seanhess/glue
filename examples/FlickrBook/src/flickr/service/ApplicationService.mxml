@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<events:EventDispatcher xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:business="flickr.business.*" xmlns:model="flickr.model.*" xmlns:events="flash.events.*">
+	
+	<mx:HTTPService id="configService" resultFormat="e4x" url="assets/config/configuration.xml" result="onConfigLoaded(event)"/>
+	
+	<model:Config id="config"/>
+	
+	<mx:Script>
+		<![CDATA[
+			public static const CONFIG_LOADED:String = "configLoaded";
+		
+			import mx.rpc.events.ResultEvent;
+			public function loadConfig():void
+			{
+				configService.send();
+			}
+			
+			private function onConfigLoaded(event:ResultEvent):void
+			{
+				var info:XML = event.result as XML;
+				config.url = info..url;
+				config.key = info..api_key;
+				
+				dispatchEvent(new Event(CONFIG_LOADED));
+			}
+		]]>
+	</mx:Script>
+</events:EventDispatcher>

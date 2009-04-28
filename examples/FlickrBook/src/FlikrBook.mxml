@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+    xmlns:mx="http://www.adobe.com/2006/mxml"  
+    xmlns:control="flickr.control.*" xmlns:views="flickr.ui.views.*">
+
+    <!-- Styles ________________________________________________________________________ -->
+    
+    <mx:Style source="assets/styles/Main.css" />
+    
+    <!-- Controllers -->
+    
+    <control:MainGlue/>
+
+    <!-- Views ________________________________________________________________________ -->
+    
+   	<views:MainUI width="100%" height="100%"/>
+    
+</mx:Application>

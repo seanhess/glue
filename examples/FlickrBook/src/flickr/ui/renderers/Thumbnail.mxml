@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	  verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	  
+	<mx:Box styleName="thumbnail">
+		<mx:Image id="image" visible="false" 
+			complete="image.visible=true"
+			 source="{data.urlSmallSquare}" 
+			 width="75" height="75" 
+			 toolTip="{data.title}" 
+			 showEffect="Fade" />
+	</mx:Box>	
+	
+</mx:Canvas>
