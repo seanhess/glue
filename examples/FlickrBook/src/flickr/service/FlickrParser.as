@@ -2,6 +2,10 @@ package flickr.service
 {
 	import flickr.model.Photo;
 	
+	/**
+	 * Services can do stuff for you, but don't manipulate live
+	 * models
+	 */
 	public class FlickrParser
 	{
 		

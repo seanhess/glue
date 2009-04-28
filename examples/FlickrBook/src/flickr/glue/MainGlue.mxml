@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:views="flickr.ui.views.*" xmlns:business="flickr.business.*" xmlns:service="flickr.service.*" xmlns:model="flickr.model.*" xmlns:control="flickr.control.*">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+		]]>
+	</mx:Script>
+
+
+
+
+
+	<!-- MODELS :: These are the main models -->	
+	<model:Photos id="photos"/>
+	<model:Config id="config"/>
+	
+	
+	
+	
+	
+	
+	<!-- CONTROLLERS :: Controllers can manipulate models and call services -->
+	<Glue>
+		<control:ApplicationController id="appController" config="{config}"/>
+		<Route event="{ApplicationController.CONFIG_LOADED}" call="photoController.getInterestingness()"/>
+	</Glue>
+	
+	<control:PhotoController 		id="photoController" 		photos="{photos}" config="{config}"/>
+	<control:MockPhotoController 	id="mockPhotoController"	photos="{photos}" />
+
+
+
+
+
+	<!-- VIEWS -->
+	<Glue>
+		<views:MainUI id="main"/>
+		<Route event="{FlexEvent.CREATION_COMPLETE}" call="appController.loadConfig()"/>
+		<Route event="{MainUI.INTERESTINGNESS}" call="photoController.getInterestingness()"/>
+		<Route event="{MainUI.SEARCH}" 			call="photoController.search(main.search)"/>
+	</Glue>
+	
+	<Glue>
+		<views:PhotoViewer id="photoViewer"/>
+		<Inject currentSet="{photos.currentSet}"/>
+	</Glue>
+
+</GlueMap>

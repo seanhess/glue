@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application 
     xmlns:mx="http://www.adobe.com/2006/mxml"  
-    xmlns:control="flickr.control.*" xmlns:views="flickr.ui.views.*">
+    xmlns:control="flickr.control.*" xmlns:views="flickr.ui.views.*" xmlns:glue="flickr.glue.*">
 
     <!-- Styles ________________________________________________________________________ -->
     
@@ -9,7 +9,7 @@
     
     <!-- Controllers -->
     
-    <control:MainGlue/>
+    <glue:MainGlue/>
 
     <!-- Views ________________________________________________________________________ -->
     
