@@ -25,8 +25,7 @@ package login.control
 		public var email:String;
 		
 		/**
-		 * Notice this is a default implementation. It can be replaced with 
-		 * another from the GlueMap.
+		 * implementation is injected from the map
 		 */
 		public var authService:IAuthenticationService;
 		
