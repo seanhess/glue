@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="login.control.*" xmlns:service="login.service.*" xmlns:view="login.view.*">
+<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="login.control.*" xmlns:service="login.service.*" xmlns:view="login.view.*" xmlns:model="login.model.*">
 	
 	<mx:Script>
 		<![CDATA[
-			import login.model.event.LoginExample;
+			import login.model.Login;
 		]]>
 	</mx:Script>
 	
-	<service:MockAuthenticationService id="mockAuthService"/>
-	<service:AuthenticationService id="authService"/>
+	<!-- MODELS -->
+	<model:Application id="app"/>
+	<model:Navigation id="nav"/>
 	
-	<Glue>
-		<control:Authentication id="auth" 
-			authService="{mockAuthService}"
-		/>
-	</Glue>
+	
+	<!-- CONTROLLERS -->
+	<control:Authentication id="auth" app="{app}" nav="{nav}"/>
 	
 	<Glue>
 		<view:MainView id="mainView"/>
 		
-		<Inject userEmail="{auth.email}"/>
+		<Inject user="{app.currentUser}"/>
+		<Inject nav="{nav}"/>
 		
-		<Route event="{LoginExample.LOGIN}" call="auth.login(mainView.username, mainView.password)"/>
-		<Route event="{LoginExample.LOGOUT}" call="auth.logout()"/>
-		
-		<Observe controller="{auth}" event="{LoginExample.LOGIN}" call="mainView.hideLogin()"/>
-		<Observe controller="{auth}" event="{LoginExample.LOGOUT}" call="mainView.showLogin()"/>
-		<Observe controller="{auth}" event="{LoginExample.FAIL}" call="mainView.failLogin()"/>
+		<Route event="{Login.LOGIN}" call="auth.login(mainView.login)"/>
+		<Route event="{Login.LOGOUT}" call="auth.logout()"/>
 	</Glue>
 	
 </GlueMap>

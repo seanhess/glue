@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:model="login.model.*" xmlns:service="login.service.*">
+
+	<model:Application id="app"/>
+	<model:Navigation id="nav"/>
+
+	<mx:HTTPService id="loginService" url="../server/login.php" resultFormat="object" result="onLogin(event)">
+		<mx:request>
+			<username>{currentAttempt.username}</username>
+			<password>{currentAttempt.password}</password>
+		</mx:request>
+	</mx:HTTPService>
+	
+	<mx:HTTPService id="logoutService" url="../server/logout.php" resultFormat="object" result="onLogout(event)">
+	</mx:HTTPService>
+
+	<service:ParseAuthResponses id="parser"/>
+
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import login.model.Login;
+			import login.model.User;
+			
+			[Bindable] public var currentAttempt:Login;
+		
+			public function login(value:Login):void
+			{
+				currentAttempt = value;
+				currentAttempt.failed = false;
+				currentAttempt.waiting = true;
+				loginService.send();
+			}
+			
+			public function logout():void
+			{
+				logoutService.send(); 
+			}
+			
+			/**
+			 * This is some logic, but it's testable by mocking the services
+			 */
+			private function onLogin(event:ResultEvent):void
+			{
+				currentAttempt.waiting = false;
+				var user:User = parser.parseLoginResponse(event.result);
+				
+				if (user.valid)
+				{
+					app.currentUser = user;
+					nav.loggedIn();
+				}
+				else
+				{
+					currentAttempt.failed = true;
+					onLogout(null);
+				}
+			}
+			
+			private function onLogout(event:Event):void
+			{
+				currentAttempt = null;
+				app.currentUser = null;
+				nav.loggedOut();
+			}
+		]]>
+	</mx:Script>
+
+</mx:Object>
