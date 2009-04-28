@@ -37,10 +37,6 @@
 			{
 				Alert.show("There was an error");
 			}
-			
-			private function onLoad(event:Event):void{
-				trace("WOOT");
-			}
 		]]>
 	</fx:Script>
 </fx:Object>

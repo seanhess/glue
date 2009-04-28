@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Panel title="Stock Quotes" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300">
+<s:Panel title="Stock Quotes" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:view="stocks.view.*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -16,6 +16,10 @@
 		]]>
 	</fx:Script>
 	
+	<fx:Declarations>
+		<view:PriceFormatter id="format" price="{quote.price}"/>
+	</fx:Declarations>
+	
 	<s:layout>
 		<s:VerticalLayout/>
 	</s:layout>
@@ -27,5 +31,5 @@
 		<s:Button label="Get Quote" click="getQuote()"/>
 	</s:Group>
     
-    <mx:Label text="Price: {quote.price}" />
+    <mx:Label text="Price: {format.display}" />
 </s:Panel>
