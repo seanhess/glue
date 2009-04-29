@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:model="login.model.*" xmlns:service="login.service.*">
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:model="login.model.*" xmlns:service="login.service.*" xmlns="http://glue.seanhess.net/2009">
 
+	<!--
+		This controller is responsible for invoking services and
+		manipulating models. 
+	-->
+
+	<!-- Models: These are injected -->
 	<model:Application id="app"/>
 	<model:Navigation id="nav"/>
 
-	<mx:HTTPService id="loginService" url="../server/login.php" resultFormat="object" result="onLogin(event)">
-		<mx:request>
-			<username>{currentAttempt.username}</username>
-			<password>{currentAttempt.password}</password>
-		</mx:request>
-	</mx:HTTPService>
-	
-	<mx:HTTPService id="logoutService" url="../server/logout.php" resultFormat="object" result="onLogout(event)">
-	</mx:HTTPService>
-
+	<!-- Services: Either injected or created. -->
 	<service:ParseAuthResponses id="parser"/>
+	
+	<!-- These tags make it so we can listen to any service that is injected with minimal code -->
+	<Respond id="respondLogin"  result="onLogin(event.source)"/>
+	<Respond id="respondLogout" result="onLogout(event.source)"/>
 
 	<mx:Script>
 		<![CDATA[
 			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.HTTPService;
 			import login.model.Login;
 			import login.model.User;
 			
-			[Bindable] public var currentAttempt:Login;
+			// These are injected in from the glue
+			[Bindable] public var loginService:HTTPService;	
+			[Bindable] public var logoutService:HTTPService;
+			
+			private var currentAttempt:Login;
 		
 			public function login(value:Login):void
 			{
 				currentAttempt = value;
-				currentAttempt.failed = false;
-				currentAttempt.waiting = true;
-				loginService.send();
+				currentAttempt.start();
+				respondLogin.start(loginService);
+				loginService.send({username:currentAttempt.username, password:currentAttempt.password});
 			}
 			
 			public function logout():void
 			{
+				respondLogout.start(logoutService);
 				logoutService.send(); 
 			}
 			
-			/**
-			 * This is some logic, but it's testable by mocking the services
-			 */
 			private function onLogin(event:ResultEvent):void
 			{
 				currentAttempt.waiting = false;

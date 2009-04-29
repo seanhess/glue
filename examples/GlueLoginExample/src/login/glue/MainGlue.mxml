@@ -7,13 +7,21 @@
 		]]>
 	</mx:Script>
 	
+	<!-- SERVICES :: These could be in another file -->
+	<mx:HTTPService id="login" url="../server/login.php" resultFormat="object"/>
+	<mx:HTTPService id="logout" url="../server/logout.php" resultFormat="object"/>
+	
+	<service:MockLoginService id="mockLogin"/>
+	<service:DoNothingService id="doNothing"/>
+
+	
 	<!-- MODELS -->
 	<model:Application id="app"/>
 	<model:Navigation id="nav"/>
 	
 	
 	<!-- CONTROLLERS -->
-	<control:Authentication id="auth" app="{app}" nav="{nav}"/>
+	<control:Authentication id="auth" app="{app}" nav="{nav}" loginService="{mockLogin}" logoutService="{doNothing}"/>
 	
 	<Glue>
 		<view:MainView id="mainView"/>

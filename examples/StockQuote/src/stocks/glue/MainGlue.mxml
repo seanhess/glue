@@ -2,8 +2,12 @@
 <GlueMap xmlns="http://glue.seanhess.net/2009" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:view="stocks.view.*" xmlns:control="stocks.control.*" xmlns:mate="http://mate.asfusion.com/" xmlns:service="stocks.service.*">
 	<fx:Declarations>
 	
+		<!-- SERVICE -->
+		<service:QuoteService id="quoteService"/>
+		<service:RandomQuoteService id="randomQuoteService"/>
+	
 		<!-- CONTROL -->
-		<control:Quotes id="quotes"/>
+		<control:Quotes id="quotes" quoteService="{quoteService}"/>
 		
 		<!-- VIEW -->
 		<Glue>

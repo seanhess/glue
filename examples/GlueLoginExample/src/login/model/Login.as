@@ -20,5 +20,11 @@ package login.model
 			waiting = false;
 			failed = false;
 		}
+		
+		public function start():void
+		{
+			waiting = true;
+			failed = false;
+		}
 	}
 }
