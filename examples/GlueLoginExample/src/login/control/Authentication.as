@@ -28,6 +28,7 @@ package login.control
 		{
 			var respond:Respond = new Respond(loginService, attempt);
 				respond.result(onLogin);
+				respond.fault(onFault);
 
 			attempt.waiting = true;
 			
@@ -66,5 +67,11 @@ package login.control
 			app.currentUser = null;
 			nav.loggedOut();
 		}
+		
+		private function onFault(event:Event):void
+		{
+			throw new Error("FAULT " + event);
+		}
+		
 	}
 }

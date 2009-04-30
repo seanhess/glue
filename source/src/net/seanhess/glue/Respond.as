@@ -6,20 +6,14 @@ package net.seanhess.glue
 	
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
-	
-	/**
-	 * Figure out how to get it to use a responder too.
-	 * 
-	 * I need to figure out how to clean this up... 
-	 * 
-	 * 
-	 */
+
 	public class Respond
 	{
 		public var service:IEventDispatcher;
 		public var data:*;
 		public var handlers:Dictionary;
 		public var autoClean:Boolean = true;
+		public var uid:String = Math.random().toString(); 
 		
 		public function Respond(service:IEventDispatcher, data:*=null, autoClean:Boolean = true)
 		{
@@ -31,7 +25,7 @@ package net.seanhess.glue
 		
 		public function listen(type:String, handler:Function):void
 		{
-			service.addEventListener(type, callback);
+			service.addEventListener(type, this.callback);
 			handlers[type] = handler;
 		}
 		
@@ -48,8 +42,7 @@ package net.seanhess.glue
 		protected function callback(event:Event):void
 		{
 			var handler:Function = handlers[event.type];
-			remove(event.type);
-			
+		
 			try 
 			{
 				handler(event, this);
@@ -69,22 +62,25 @@ package net.seanhess.glue
 			
 			if (autoClean)
 				clean();
+				
+			else
+				remove(event.type);
 		}
 		
 		public function clean():void
-		{
+		{			
 			for (var type:String in handlers)
 				remove(type);
+				
+			service = null;
+			data = null;
+			handlers = null; 
 		}
 		
 		public function remove(type:String):void
 		{
-			var handler:Function = handlers[type];
-			
-			if (handler != null)
-				service.removeEventListener(type, callback);
-			
 			delete handlers[type];
+			service.removeEventListener(type, this.callback);
 		}
 		
 	}

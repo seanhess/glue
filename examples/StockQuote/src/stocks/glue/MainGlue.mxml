@@ -5,9 +5,10 @@
 		<!-- SERVICE -->
 		<service:QuoteService id="quoteService"/>
 		<service:RandomQuoteService id="randomQuoteService"/>
+		<service:QuoteServiceParser id="quoteParser"/>
 	
 		<!-- CONTROL -->
-		<control:Quotes id="quotes" quoteService="{quoteService}"/>
+		<control:Quotes id="quotes" quoteService="{quoteService}" parser="{quoteParser}"/>
 		
 		<!-- VIEW -->
 		<Glue>
