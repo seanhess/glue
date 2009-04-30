@@ -1,11 +1,14 @@
 package login.model
 {
+	import flash.events.Event;
+	
 	[Bindable]
+	[Event(name="reset", type="flash.events.Event")]
 	public class Login
 	{
-		public static const LOGIN:String = "login";
-		public static const LOGOUT:String = "logout";
-		public static const FAIL:String = "fail";
+		public static const LOGIN:String = "login"; 
+		public static const LOGOUT:String = "logout"; 
+		public static const RESET:String = "reset"; 
 		
 		public var username:String;
 		public var password:String;
@@ -19,6 +22,7 @@ package login.model
 			password = "";
 			waiting = false;
 			failed = false;
+			dispatchEvent(new Event(RESET));
 		}
 		
 		public function start():void

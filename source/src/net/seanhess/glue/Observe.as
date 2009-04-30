@@ -64,6 +64,16 @@ package net.seanhess.glue
 			_on = value;
 		}
 		
+		public function set model(value:IEventDispatcher):void
+		{
+			_on = value;
+		}
+		
+		public function set service(value:IEventDispatcher):void
+		{
+			_on = value;
+		}
+		
 		public function get on():IEventDispatcher
 		{
 			return _on;

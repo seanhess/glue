@@ -13,6 +13,7 @@
 	
 	<service:MockLoginService id="mockLogin"/>
 	<service:DoNothingService id="doNothing"/>
+	<service:ParseAuthResponses id="authParser"/>
 
 	
 	<!-- MODELS -->
@@ -21,7 +22,7 @@
 	
 	
 	<!-- CONTROLLERS -->
-	<control:Authentication id="auth" app="{app}" nav="{nav}" loginService="{mockLogin}" logoutService="{doNothing}"/>
+	<control:Authentication id="auth" app="{app}" nav="{nav}" loginService="{login}" logoutService="{logout}" parse="{authParser}"/>
 	
 	<Glue>
 		<view:MainView id="mainView"/>

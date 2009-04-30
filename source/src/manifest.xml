@@ -5,7 +5,6 @@
 	<component class="net.seanhess.glue.IGlueAction"/>
 	<component class="net.seanhess.glue.Observe"/>
 	<component class="net.seanhess.glue.Respond"/>
-	<component class="net.seanhess.glue.RespondEvent"/>
 	<component class="net.seanhess.glue.Smart"/>
 	<component class="net.seanhess.glue.GlueMap"/>
 	<component class="net.seanhess.glue.Route"/>

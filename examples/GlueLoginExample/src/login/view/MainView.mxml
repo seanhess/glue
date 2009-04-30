@@ -27,7 +27,7 @@
 		]]>
 	</mx:Script>
 	
-	<model:Login id="login">
+	<model:Login id="login" reset="reset()">
 		<model:username>{usernameField.text}</model:username>
 		<model:password>{passwordField.text}</model:password>
 	</model:Login>
@@ -50,11 +50,11 @@
 		<mx:Panel horizontalCenter="0" verticalCenter="0" enabled="{!login.waiting}">
 			<mx:Form>
 				<mx:FormItem label="Username">
-					<mx:TextInput id="usernameField" toolTip="username: bob"/>
+					<mx:TextInput id="usernameField" toolTip="username: bob" enter="onLoginClick()"/>
 				</mx:FormItem>
 				
 				<mx:FormItem label="Password">
-					<mx:TextInput id="passwordField" displayAsPassword="true" toolTip="password: bob"/>
+					<mx:TextInput id="passwordField" displayAsPassword="true" toolTip="password: bob" enter="onLoginClick()"/>
 				</mx:FormItem>
 				
 				<mx:Canvas width="100%">
