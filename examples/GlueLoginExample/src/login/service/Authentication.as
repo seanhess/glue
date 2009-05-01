@@ -1,4 +1,4 @@
-package login.control
+package login.service
 {
 	import flash.events.Event;
 	
