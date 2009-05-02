@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Controller xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*" xmlns:model="books.model.*">
+<Controller xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*" xmlns:model="books.model.*" xmlns:service="books.service.*">
 
 	<mx:Script>
 		<![CDATA[
@@ -8,98 +8,27 @@
 		]]>
 	</mx:Script>
 	
+	<!-- MODELS -->
 	<model:Library id="library"/>
-	
-	<Glue>
-		<control:Browse id="browse"/>	
-		<Inject books="{library.books}"/>
-	</Glue>
-	
-	<Glue>
-		<control:Search id="search"/>
-		<Inject 
-			allBooks="{library.books}"
-			allAuthors="{library.authors}"
-		/>
-	</Glue>
+	<model:Browse id="browse"/>
+	<model:Search id="search"/>
 	
 	
 	
+	<!-- SERVICES -->
+	<service:BrowseService id="browseService" browse="{browse}" library="{library}"/>
+	<service:SearchService id="searchService" search="{search}" library="{library}"/>	
+
+
+
+
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 
-		VIEWS 
-		
-		There should normally be one Glue for each view you care about. 
-		It will glue every view of that type, so if you use a component, 
-		instead of a view, all of them will get the same glue. 
-		
-		The View is declared as the first child of the glue. If you do 
-		this, it throws the one you create away, and replaces it with the
-		currently matched view. It sets the selector's match property to
-		the classname of the view for you. In other words, this is some 
-		magic to get you autocompletion, but the instance you are working
-		on will always be replaced with the right one (if you follow 
-		conventions). 
-				
-		If you want to target a specific instance of a component, you 
-		can use Bifff's selectors (bifff.seanhess.net). For example, you
-		could say <Glue match="ResultsPage#main"> and it would target the
-		results page with an id of main. 
-		
-	 	BEST PRACTICE: Only specify injections and observes that set or 
-	 	call something on the view in question. Views should never target
-	 	other views. The target property is to say which controller to
-	 	listen to, or to drill into an unencapsulated view.  
-		
-		
-		
-		================================================================
-		
-		MainView
-		
-		I am using it's creation complete to initialize the app
-		MainView has some encapsulated events, so we'll use the constants
-		instead of typing the event names. 
-		
-		==================================================================
-		
-		MainPagesView
-		
-		Notice how I am reusing the ResultsPage component and injecting
-		different results into both browse and search
-		
-		You can encapsulate views as much as you want. If you don't, 
-		you can reach into them using the target attribute, like I've 
-		done with back, browseResults and searchResults. 
-		
-		I set up observe tags to listen to the view (like the back 
-		click handler), and to respond to a controller action
-		in the view. The second usage makes it so I can call the 
-		controller from anywhere, and this view will get updated. 
-		
-		It should be considered bad practice to target another view
-		with an observe tag. Any injector target should be something
-		inside the view.
-		
-		Play around with it. Notice the auto-complete!
-		
-		Inject will throw a runtime error if the target doesn't 
-		have the runtime property it is trying to inject to. 
-	-->
 	<Glue>
 		<view:MainView id="mainView"/>
 		<Route event="{FlexEvent.CREATION_COMPLETE}" call="library.mock()"/>
-		<Route event="{MainView.SEARCH}" call="browse.showSearch()"/>
-		<Route event="{MainView.BROWSE}" call="browse.showBrowse()"/>
+		<Route event="{MainView.SEARCH}" call="browseService.showSearch()"/>
+		<Route event="{MainView.BROWSE}" call="browseService.showBrowse()"/>
 	</Glue>
 
 	<Glue>
@@ -109,7 +38,7 @@
 		<Inject child="{pages.browseResults}" books="{library.books}" authors="{library.authors}"/>
 		<Inject child="{pages.searchResults}" books="{search.bookResults}" authors="{search.authorResults}"/>
 		
-		<Route child="{pages.back}" event="click" call="browse.goBack()"/>
+		<Route child="{pages.back}" event="click" call="browseService.goBack()"/>
 		
 		<Observe model="{browse}" event="goBack" call="pages.goBack()"/>
 		<Observe model="{browse}" event="showSearch" call="pages.showSearch()"/>
@@ -122,8 +51,8 @@
 	
 	<Glue>
 		<pages:ResultsPage id="results"/>
-		<Route event="{ResultsPage.SELECT_BOOK}" call="browse.showBook(results.selectedBook)"/>
-		<Route event="{ResultsPage.SELECT_AUTHOR}" call="browse.showAuthor(results.selectedAuthor)"/>
+		<Route event="{ResultsPage.SELECT_BOOK}" call="browseService.showBook(results.selectedBook)"/>
+		<Route event="{ResultsPage.SELECT_AUTHOR}" call="browseService.showAuthor(results.selectedAuthor)"/>
 	</Glue>
 	
 	<!-- 
@@ -132,18 +61,18 @@
 	<Glue>
 		<pages:BookPage id="bookView"/>
 		<Inject book="{browse.currentBook}"/>
-		<Route child="{bookView.authorButton}" event="click" call="browse.showAuthor(bookView.book.author)"/>
+		<Route child="{bookView.authorButton}" event="click" call="browseService.showAuthor(bookView.book.author)"/>
 	</Glue>
 	
 	<Glue>
 		<pages:AuthorPage id="authorView"/>	
 		<Inject author="{browse.currentAuthor}"/>
-		<Route child="{authorView.booksList}" event="itemClick" call="browse.showBook(authorView.booksList.selectedItem as Book)"/>
+		<Route child="{authorView.booksList}" event="itemClick" call="browseService.showBook(authorView.booksList.selectedItem as Book)"/>
 	</Glue>
 	
 	<Glue>
 		<pages:SearchPage id="searchView"/>
-		<Route child="{searchView.searchBtn}" event="click" call="search.search(searchView.input.text)"/>
+		<Route child="{searchView.searchBtn}" event="click" call="searchService.doSearch(searchView.input.text)"/>
 	</Glue>
 
 </Controller>
