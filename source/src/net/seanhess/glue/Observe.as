@@ -36,16 +36,18 @@ package net.seanhess.glue
 			var dispatcher:IEventDispatcher;
 			
 			if (on) 
-			{
-				(parent.selector as Glue).setCurrentInstance(target);
 				dispatcher = on;
-			}
+
 			else
-			{
 				dispatcher = super.getDispatcher(target);
-			}
 			
 			return dispatcher;
+		}
+		
+		override protected function eventFiring(target:*, event:Event):void
+		{
+			super.eventFiring(target, event);
+			(parent.selector as Glue).setCurrentInstance(target);
 		}
 	}
 }
