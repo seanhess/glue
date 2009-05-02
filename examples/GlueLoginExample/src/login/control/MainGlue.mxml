@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="login.control.*" xmlns:service="login.service.*" xmlns:view="login.view.*" xmlns:model="login.model.*">
+<Controller xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="login.control.*" xmlns:service="login.service.*" xmlns:view="login.view.*" xmlns:model="login.model.*">
 	
 	<mx:Script>
 		<![CDATA[
@@ -35,4 +35,4 @@
 		<Route event="{Login.LOGOUT}" call="auth.logout()"/>
 	</Glue>
 	
-</GlueMap>
+</Controller>

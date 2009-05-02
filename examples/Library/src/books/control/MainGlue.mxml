@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*">
+<Controller xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*" xmlns:model="books.model.*">
 
 	<mx:Script>
 		<![CDATA[
@@ -8,37 +8,7 @@
 		]]>
 	</mx:Script>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 
-		CONTROLLERS 
-		
-		Controllers should be specified as the first child of the Glue
-		tag. This automatically sets the controller property for you. 
-		Alternatively, you can specify the controller elsewhere, and 
-		write <Glue controller="{myController}"/>. If you put a
-		controller as the first parameter, it actually creates it and
-		uses it, unlike views (see below).
-	
-		Note that I created a glue for library even though 
-	 	I didn't define any rules. I'm just doing this for consistency
-	 	
-	 	Browse and search use the inject tags to pull their books
-	 	and authors lists from the library. 
-	 	
-	 	BEST PRACTICE: Only specify injections and observes that set or 
-	 	call something on the controller in question. 
-	-->
-	
-	<Glue>
-		<control:Library id="library"/>	
-	</Glue>
+	<model:Library id="library"/>
 	
 	<Glue>
 		<control:Browse id="browse"/>	
@@ -141,13 +111,13 @@
 		
 		<Route child="{pages.back}" event="click" call="browse.goBack()"/>
 		
-		<Observe controller="{browse}" event="goBack" call="pages.goBack()"/>
-		<Observe controller="{browse}" event="showSearch" call="pages.showSearch()"/>
-		<Observe controller="{browse}" event="showBrowse" call="pages.showBrowse()"/>
-		<Observe controller="{browse}" event="showBook" call="pages.showBook()"/>
-		<Observe controller="{browse}" event="showAuthor" call="pages.showAuthor()"/>
+		<Observe model="{browse}" event="goBack" call="pages.goBack()"/>
+		<Observe model="{browse}" event="showSearch" call="pages.showSearch()"/>
+		<Observe model="{browse}" event="showBrowse" call="pages.showBrowse()"/>
+		<Observe model="{browse}" event="showBook" call="pages.showBook()"/>
+		<Observe model="{browse}" event="showAuthor" call="pages.showAuthor()"/>
 		
-		<Observe controller="{search}" event="search" call="pages.showSearchResults()"/>
+		<Observe model="{search}" event="search" call="pages.showSearchResults()"/>
 	</Glue>
 	
 	<Glue>
@@ -176,4 +146,4 @@
 		<Route child="{searchView.searchBtn}" event="click" call="search.search(searchView.input.text)"/>
 	</Glue>
 
-</GlueMap>
+</Controller>

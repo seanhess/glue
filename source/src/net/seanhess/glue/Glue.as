@@ -1,37 +1,26 @@
 package net.seanhess.glue
 {
-	import flash.events.IEventDispatcher;
+	import flash.events.Event;
 	import flash.utils.getQualifiedClassName;
 	
 	import mx.core.UIComponent;
 	
-	import net.seanhess.bifff.core.BehaviorMap;
+	import net.seanhess.bifff.core.Node;
 	import net.seanhess.bifff.core.Selector;
-	import net.seanhess.bifff.events.CreationComplete;
-	import net.seanhess.bifff.scope.Scope;
 	import net.seanhess.bifff.utils.Invalidator;
 	
 	[DefaultProperty("stuff")]
 	public class Glue extends Selector
 	{
-		public var _controller:*;
-		private var _controllerClass:String; 
-		private var mapTarget:IEventDispatcher;
-		private var map:BehaviorMap;
+		public static const INITIALIZED:String = "initialized";
+		public static const INSTANCE_CHANGE:String = "currentInstanceChange";
+		
+		private var _target:*;
+		private var _targetClass:String; 
 		private var invalidator:Invalidator = new Invalidator(commit);
-		private var viewID:String
+		public var viewID:String
 		
-		public function set find(value:String):void
-		{
-			this.match = value;
-		}
-		
-		public function set controller(value:*):void
-		{
-			_controller = value;
-			var name:String = getQualifiedClassName(value);
-			_controllerClass = name;
-		}
+		public var currentInstance:*;
 		
 		/**
 		 * If you set the view, Glue will replace the instance in the map
@@ -44,56 +33,59 @@ package net.seanhess.glue
 			this.match = this.match || value.className;
 		}
 		
+		/**
+		 * You can set to a view class or a non-view class. This acts very
+		 * differently depending on which one it is. If it is a view class 
+		 * (determined by whether it has properties similar to UIComponent)
+		 * then it will set the match values appropriately and wait for it
+		 * to show up in the behavior map
+		 */
 		public function set target(value:*):void
 		{
 			if (value.hasOwnProperty("id") && value.hasOwnProperty("className")) // dynamic UIComponent...
 				view = value;
+				
 			else
-				controller = value;	
+			{
+				_target = value;
+				var name:String = getQualifiedClassName(value);
+				_targetClass = name;
+				invalidator.invalidate("target");
+				nodes = [new Node(Node.NONE)];
+			}
+		}
+		
+		public function get target():*
+		{
+			return _target;
 		}
 		
 		public function setCurrentInstance(view:*):void
 		{
 			if (viewID)
-				(map as GlueMap).setCurrentInstance(viewID, view);
+			{
+				currentInstance = view;
+				dispatchEvent(new Event(INSTANCE_CHANGE));
+			}
 		}
 		
 		override public function matches(target:*, root:*=null):Boolean
 		{
-			if (_controller)
-			{
-				var targetClass:String = getQualifiedClassName(target);
-				return (targetClass == _controllerClass);
-			}
-			else if (match)
-			{
-				var matches:Boolean = super.matches(target, root);
+			var matches:Boolean = super.matches(target, root);
+			
+			if (matches)
+				setCurrentInstance(target);
 				
-				if (matches)
-					setCurrentInstance(target);
-				return matches;
-			}
-			else
-			{
-				throw new Error("Could not find target for glue: "+this+". Make sure target is set as an attribute, or as the first child");
-			}
+			return matches;
 		}
 		
-		override public function set parent(value:Scope):void
-		{
-			super.parent = value;
-			mapTarget = value.mapTarget; // woot! // 
-			map = value.map;
-			invalidator.invalidate("parent");
-		}
-		
+		/**
+		 * Dispatch an initialized event, saying all our properties are set
+		 */
 		protected function commit():void
 		{
-			if (_controller)
-			{
-				var event:CreationComplete = new CreationComplete(_controller);
-				mapTarget.dispatchEvent(event);
-			}
+			if (_target && actions && invalidator.invalid("target"))
+				dispatchEvent(new Event(INITIALIZED));
 		}
 		
 		[ArrayElementType("Object")]
@@ -102,9 +94,10 @@ package net.seanhess.glue
 			if (value.length > 0 && !(value[0] is IGlueAction))
 			{
 				target = value.shift();
-			}			
+			}
 			
 			actions = value;
+			invalidator.invalidate("target");
 		}
 	}
 }

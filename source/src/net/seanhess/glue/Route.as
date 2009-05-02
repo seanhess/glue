@@ -22,7 +22,7 @@ package net.seanhess.glue
 		 */
 		public function set child(value:*):void
 		{
-			this.controller = value;
+			on = value;
 		}
 	}
 }

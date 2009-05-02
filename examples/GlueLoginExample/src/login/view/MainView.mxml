@@ -3,11 +3,14 @@
 
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Button;
 			import login.model.Navigation;
 			import login.model.User;
 			
 			[Bindable] public var user:User;
 			[Bindable] public var nav:Navigation;
+			
+			public var myButton:Button = new Button();
 			
 			private function onLoginClick():void
 			{

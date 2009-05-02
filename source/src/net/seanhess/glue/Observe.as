@@ -1,12 +1,9 @@
 package net.seanhess.glue
 {
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
-	import net.seanhess.bifff.scope.IScopeable;
-	import net.seanhess.bifff.scope.Scope;
-	import net.seanhess.bifff.utils.Debug;
+	import net.seanhess.bifff.behaviors.Listen;
 	
 	/**
 	 * Usage: <Observe controller="{myController}" event="eventType" call="me.doAction()"/>
@@ -15,73 +12,40 @@ package net.seanhess.glue
 	 * your current view or controller.
 	 */
 	[Event(name="call", type="flash.events.Event")] 
-	public class Observe extends EventDispatcher implements IGlueAction, IScopeable
+	public class Observe extends Listen implements IGlueAction
 	{		
-		private var _on:IEventDispatcher;
-		public var event:String;
-		[Bindable] public var parent:Scope;
+		protected var on:IEventDispatcher;
 		
-		public var enableDebug:Boolean = true;
+		public function applyAction(target:*):void
+		{
+			this.target = target;
+		}
+
+		public function set model(value:IEventDispatcher):void
+		{
+			on = value;
+		}
 		
-		public function apply(target:*):void
-		{			
-			var dispatcher:IEventDispatcher = target as IEventDispatcher;
+		public function set service(value:IEventDispatcher):void
+		{
+			on = value;
+		}
+		
+		override protected function getDispatcher(target:*):IEventDispatcher
+		{
+			var dispatcher:IEventDispatcher;
 			
 			if (on) 
 			{
 				(parent.selector as Glue).setCurrentInstance(target);
 				dispatcher = on;
 			}
+			else
+			{
+				dispatcher = super.getDispatcher(target);
+			}
 			
-			if (enableDebug) debug.log("[ √ ] Observe("+event+") - " + dispatcher);
-			
-			if (dispatcher == null)
-				throw new Error("Target was not IEventDispatcher: " + target);
-			
-			dispatcher.addEventListener(event, function(event:Event):void {
-
-				(parent.selector as Glue).setCurrentInstance(target);
-				
-				var message:String = "[ -> ] Observe("+event.type+") - " + event.target;
-				
-				if (on)
-					message += " -> " + (parent.selector as Glue);
-					
-				if (enableDebug) debug.log(message);
-
-				var scope:Scope = new Scope();
-				scope.item = target;
-				scope.event = event;
-				Smart.setScope(scope);
-				
-				dispatchEvent(new Event("call"));
-				
-			});
-		}
-		
-		public function set controller(value:IEventDispatcher):void
-		{
-			_on = value;
-		}
-		
-		public function set model(value:IEventDispatcher):void
-		{
-			_on = value;
-		}
-		
-		public function set service(value:IEventDispatcher):void
-		{
-			_on = value;
-		}
-		
-		public function get on():IEventDispatcher
-		{
-			return _on;
-		}
-		
-		public function get debug():Debug
-		{
-			return Debug.instance;
+			return dispatcher;
 		}
 	}
 }

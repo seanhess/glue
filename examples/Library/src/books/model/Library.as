@@ -1,4 +1,4 @@
-package books.control
+package books.model
 {
 	import books.model.mock.MockData;
 	

@@ -1,13 +1,6 @@
 package net.seanhess.glue
 {
-	import flash.utils.Proxy;
-	import flash.utils.flash_proxy;
-	
-	import net.seanhess.bifff.scope.IScopeable;
-	import net.seanhess.bifff.scope.Scope;
-	import net.seanhess.bifff.utils.Debug;
-	import net.seanhess.bifff.utils.Invalidator;
-	import net.seanhess.bifff.utils.TargetRegistry;
+	import net.seanhess.bifff.behaviors.Set;
 	
 	/**
 	 * Injects properties into controllers and views from a controller. 
@@ -15,33 +8,22 @@ package net.seanhess.glue
 	 * Usage: <Inject myProperty="{mycontroller.value}"/>
 	 * Usage: <Inject child="{myView.list}" dataProvider="{mycontroller.list}"/>
 	 */
-	dynamic public class Inject extends Proxy implements IGlueAction, IScopeable
+	dynamic public class Inject extends Set implements IGlueAction
 	{
-		protected var values:Object = {};
-		protected var updates:Object = {};
-		protected var invalidator:Invalidator = new Invalidator(commit);
 		protected var _to:*;
-		[Bindable] public var parent:Scope;
 		
-		public var enableDebug:Boolean = true;
-
-		public var registry:TargetRegistry = new TargetRegistry(actuallyApply);
-		
-		public function apply(target:*):void
+		/**
+		 * Don't set the style, just throw an error. this is for injection
+		 * not for looks, dangit!
+		 */
+		override protected function setStyleOnTarget(target:*, property:String, value:*):void
 		{
-			if (_to) target = _to;
-			registry.applyTargets(target);
+			throw new Error("Could not set property '"+property+"' on target '"+target+"' to value '"+value+"'");
 		}
 		
-		public function actuallyApply(target:*):void
+		public function applyAction(target:*):void
 		{
-			if (enableDebug) debug.log("[ √ ] Inject - " + target);
-			
-			for (var property:String in values)
-			{
-				var value:* = values[property];
-				updateProperty(target, property, value);
-			}
+			this.target = _to || target;
 		}
 		
 		/**
@@ -56,38 +38,6 @@ package net.seanhess.glue
 		public function set child(value:*):void
 		{
 			_to = value;
-		}
-		
-		protected function updateProperty(target:*, property:String, value:*):void
-		{
-			try 
-			{
-				target[property] = value;
-				if (enableDebug) debug.log("[ -> ] Inject("+property+":"+value+") -> " + target);
-			}
-			
-			catch (e:Error)
-			{
-				throw new Error("Could not inject property: '" + property + "' with value: '" + value + "' on target: '" + target + "'");
-			}
-		}
-		
-		override flash_proxy function setProperty(name:*, value:*):void {
-	        values[name] = value;
-	        updates[name] = true;
-	        invalidator.invalidate("updates");
-	    }
-	    
-	    protected function commit():void
-	    {
-    		for (var target:* in registry.map)
-    			for (var property:String in updates)
-    				updateProperty(target, property, values[property]);
-	    }
-	    
-	    public function get debug():Debug
-		{
-			return Debug.instance;
 		}
 	}
 }

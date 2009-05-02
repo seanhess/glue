@@ -1,16 +1,18 @@
 package net.seanhess.glue
 {
 	import net.seanhess.bifff.core.Executor;
+	import net.seanhess.bifff.core.Scope;
 	
 	public class GlueExecutor extends Executor
 	{
-		override public function executeActions(target:*, actions:Array):void
+		override public function executeBehaviors(target:*, behaviors:Array, scope:Scope):void
 		{
-			for each (var action:Object in actions)
+			for each (var behavior:* in behaviors)
 			{
-				if (action is IGlueAction)
+				if (behavior is IGlueAction)
 				{
-					(action as IGlueAction).apply(target);
+					setBehaviorParent(behavior, scope);
+					(behavior as IGlueAction).applyAction(target);
 				}
 			}
 		}

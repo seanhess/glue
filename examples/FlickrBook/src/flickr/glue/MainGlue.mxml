@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:views="flickr.ui.views.*" xmlns:business="flickr.business.*" xmlns:service="flickr.service.*" xmlns:model="flickr.model.*" xmlns:control="flickr.control.*">
+<Controller xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:views="flickr.ui.views.*" xmlns:business="flickr.business.*" xmlns:service="flickr.service.*" xmlns:model="flickr.model.*" xmlns:control="flickr.control.*">
 
 	<mx:Script>
 		<![CDATA[
@@ -46,4 +46,4 @@
 		<Inject currentSet="{photos.currentSet}"/>
 	</Glue>
 
-</GlueMap>
+</Controller>
