@@ -2,7 +2,7 @@ package stocks.service
 {
 	import flash.events.IEventDispatcher;
 
-	public interface IQuoteService extends IEventDispatcher
+	public interface IQuoteHTTPService extends IEventDispatcher
 	{
 		function getQuote(symbol:String):void;
 	}

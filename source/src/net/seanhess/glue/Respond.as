@@ -7,13 +7,14 @@ package net.seanhess.glue
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 
-	public class Respond
+	public class Respond // not getting garbage collected in flex 4
 	{
 		public var service:IEventDispatcher;
 		public var data:*;
 		public var handlers:Dictionary;
 		public var autoClean:Boolean = true;
 		public var uid:String = Math.random().toString(); 
+		public var cleaned:Boolean = false;
 		
 		public function Respond(service:IEventDispatcher, data:*=null, autoClean:Boolean = true)
 		{
@@ -41,6 +42,8 @@ package net.seanhess.glue
 		
 		protected function callback(event:Event):void
 		{
+			if (cleaned) return;
+			
 			var handler:Function = handlers[event.type];
 		
 			try 
@@ -74,7 +77,9 @@ package net.seanhess.glue
 				
 			service = null;
 			data = null;
-			handlers = null; 
+			handlers = null;
+			
+			cleaned = true; 
 		}
 		
 		public function remove(type:String):void

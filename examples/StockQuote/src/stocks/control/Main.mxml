@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Controller xmlns="http://glue.seanhess.net/2009" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:view="stocks.view.*" xmlns:control="stocks.control.*" xmlns:mate="http://mate.asfusion.com/" xmlns:service="stocks.service.*">
+	<fx:Declarations>
+	
+		<!-- SERVICE -->
+		<service:QuoteHTTPService id="getQuoteFromWeb"/>
+		<service:RandomQuoteService id="getRandomQuote"/>
+		<service:QuoteServiceParser id="quoteParser"/>
+		<service:QuoteService id="quotes" quoteService="{getQuoteFromWeb}" parser="{quoteParser}"/>
+		
+		<!-- VIEW -->
+		<Glue>
+			<view:QuotePanel id="quotePanel"/>
+			<Route event="{QuotePanel.GET_QUOTE}" call="quotes.getQuote(quotePanel.quote)"/>
+		</Glue> 
+		
+	</fx:Declarations>
+</Controller>
+

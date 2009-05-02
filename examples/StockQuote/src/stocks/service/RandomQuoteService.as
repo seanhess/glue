@@ -4,7 +4,7 @@ package stocks.service
 	
 	import mx.rpc.events.ResultEvent;
 
-	public class RandomQuoteService extends EventDispatcher implements IQuoteService
+	public class RandomQuoteService extends EventDispatcher implements IQuoteHTTPService
 	{
 		public function getQuote(symbol:String):void
 		{

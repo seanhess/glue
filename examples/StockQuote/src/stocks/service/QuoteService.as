@@ -1,15 +1,38 @@
 package stocks.service
 {
-	import mx.rpc.http.HTTPService;
+	import flash.events.Event;
+	
+	import mx.rpc.events.ResultEvent;
+	
+	import net.seanhess.glue.Respond;
+	
+	import stocks.model.Quote;
+	import stocks.service.IQuoteHTTPService;
+	import stocks.service.QuoteServiceParser;
 
-	public class QuoteService extends HTTPService implements IQuoteService
+	public class QuoteService
 	{
-		private const URL:String = "http://judstephenson.com/api/Quotes/Realtime/";
+		public var quoteService:IQuoteHTTPService;
+		public var parser:QuoteServiceParser; // not an interface, but you could extend it to mock it
 		
-		public function getQuote(symbol:String):void
+		public function getQuote(quote:Quote):void
 		{
-			this.url = URL + symbol;	
-			send();
+			var respond:Respond = new Respond(quoteService, quote);
+				respond.result(onResult);
+				respond.fault(onFault);
+				
+			quoteService.getQuote(quote.symbol);
+		}
+		
+		private function onResult(event:ResultEvent, respond:Respond):void
+		{
+			var quote:Quote = respond.data as Quote;
+			quote.price = parser.getPrice(event.result);
+		}
+		
+		private function onFault(event:Event):void
+		{
+			trace("There was an error");
 		}
 	}
 }
