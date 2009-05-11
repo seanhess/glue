@@ -16,19 +16,14 @@
 	<model:Config id="config"/>
 	
 	
-	
-	
-	
-	
-	<!-- CONTROLLERS :: Controllers can manipulate models and call services -->
-	<Glue>
-		<control:ApplicationController id="appController" config="{config}"/>
-		<Route event="{ApplicationController.CONFIG_LOADED}" call="photoController.getInterestingness()"/>
-	</Glue>
-	
-	<control:PhotoController 		id="photoController" 		photos="{photos}" config="{config}"/>
-	<control:MockPhotoController 	id="mockPhotoController"	photos="{photos}" />
+	<!-- SERVICES :: Controllers can manipulate models and call other services -->
+	<service:ApplicationService id="appService" 		config="{config}"/>
+	<service:MockPhotoService 	id="mockPhotoService"	photos="{photos}" />
 
+	<Glue>
+		<service:PhotoService 		id="photoService" 		photos="{photos}" config="{config}"/>
+		<Observe model="{config}" 	event="{Config.LOADED}" call="photoService.getInterestingness()"/>	
+	</Glue>	
 
 
 
@@ -36,9 +31,9 @@
 	<!-- VIEWS -->
 	<Glue>
 		<views:MainUI id="main"/>
-		<Route event="{FlexEvent.CREATION_COMPLETE}" call="appController.loadConfig()"/>
-		<Route event="{MainUI.INTERESTINGNESS}" call="photoController.getInterestingness()"/>
-		<Route event="{MainUI.SEARCH}" 			call="photoController.search(main.search)"/>
+		<Route event="{FlexEvent.CREATION_COMPLETE}" 	call="appService.loadConfig()"/>
+		<Route event="{MainUI.INTERESTINGNESS}" 		call="photoService.getInterestingness()"/>
+		<Route event="{MainUI.SEARCH}" 					call="photoService.search(main.search)"/>
 	</Glue>
 	
 	<Glue>
