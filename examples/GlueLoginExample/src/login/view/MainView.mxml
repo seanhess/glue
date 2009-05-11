@@ -7,6 +7,8 @@
 			import login.model.Navigation;
 			import login.model.User;
 			
+			public static const LOGIN:String = "login";
+			
 			[Bindable] public var user:User;
 			[Bindable] public var nav:Navigation;
 			

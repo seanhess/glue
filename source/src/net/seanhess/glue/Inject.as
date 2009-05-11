@@ -1,6 +1,6 @@
 package net.seanhess.glue
 {
-	import net.seanhess.bifff.behaviors.Set;
+	import net.seanhess.bifff.behaviors.Inject;
 	
 	/**
 	 * Injects properties into controllers and views from a controller. 
@@ -8,18 +8,9 @@ package net.seanhess.glue
 	 * Usage: <Inject myProperty="{mycontroller.value}"/>
 	 * Usage: <Inject child="{myView.list}" dataProvider="{mycontroller.list}"/>
 	 */
-	dynamic public class Inject extends Set implements IGlueAction
+	dynamic public class Inject extends net.seanhess.bifff.behaviors.Inject implements IGlueAction
 	{
 		protected var _to:*;
-		
-		/**
-		 * Don't set the style, just throw an error. this is for injection
-		 * not for looks, dangit!
-		 */
-		override protected function setStyleOnTarget(target:*, property:String, value:*):void
-		{
-			throw new Error("Could not set property '"+property+"' on target '"+target+"' to value '"+value+"'");
-		}
 		
 		public function applyAction(target:*):void
 		{

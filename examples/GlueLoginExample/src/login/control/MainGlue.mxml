@@ -8,7 +8,7 @@
 	</mx:Script>
 	
 	<!-- SERVICES :: These could be in another file -->
-	<service:Authentication id="auth" app="{app}" nav="{nav}" loginService="{login}" logoutService="{logout}" parse="{authParser}"/>
+	<service:Authentication id="auth" app="{app}" nav="{nav}" loginService="{mockLogin}" logoutService="{logout}" parse="{authParser}"/>
 
 	<mx:HTTPService id="login" url="../server/login.php" resultFormat="object"/>
 	<mx:HTTPService id="logout" url="../server/logout.php" resultFormat="object"/>
@@ -31,7 +31,7 @@
 		<Inject user="{app.currentUser}"/>
 		<Inject nav="{nav}"/>
 		
-		<Route event="{Login.LOGIN}" call="auth.login(mainView.login)"/>
+		<Route event="{Login.LOGIN}"  call="auth.login(mainView.login)"/>
 		<Route event="{Login.LOGOUT}" call="auth.logout()"/>
 	</Glue>
 	
