@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of GlueStockQuote</title>
+	<nodes>
+		<node label="src">
+			<node label="stocks.control" icon="packageIcon" expanded="true">
+				<node label="Main.mxml" icon="mxmlIcon" url="source/stocks/control/Main.mxml.html"/>
+			</node>
+			<node label="stocks.model" icon="packageIcon" expanded="true">
+				<node label="Quote.as" icon="actionScriptIcon" url="source/stocks/model/Quote.as.html"/>
+			</node>
+			<node label="stocks.service" icon="packageIcon" expanded="true">
+				<node label="IQuoteHTTPService.as" icon="actionScriptIcon" url="source/stocks/service/IQuoteHTTPService.as.html"/>
+				<node label="QuoteHTTPService.as" icon="actionScriptIcon" url="source/stocks/service/QuoteHTTPService.as.html"/>
+				<node label="QuoteService.as" icon="actionScriptIcon" url="source/stocks/service/QuoteService.as.html"/>
+				<node label="QuoteServiceParser.as" icon="actionScriptIcon" url="source/stocks/service/QuoteServiceParser.as.html"/>
+				<node label="RandomQuoteService.as" icon="actionScriptIcon" url="source/stocks/service/RandomQuoteService.as.html"/>
+			</node>
+			<node label="stocks.view" icon="packageIcon" expanded="true">
+				<node label="PriceFormatter.as" icon="actionScriptIcon" url="source/stocks/view/PriceFormatter.as.html"/>
+				<node label="QuotePanel.mxml" icon="mxmlIcon" url="source/stocks/view/QuotePanel.mxml.html"/>
+			</node>
+			<node selected="true" label="StockQuote.mxml" icon="mxmlAppIcon" url="source/StockQuote.mxml.html"/>
+		</node>
+	</nodes>
+</index>
