@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of GlueLibrary</title>
+	<nodes>
+		<node label="src">
+			<node label="books.adapt" icon="packageIcon" expanded="true">
+				<node label="AuthorBooks.as" icon="actionScriptIcon" url="source/books/adapt/AuthorBooks.as.html"/>
+			</node>
+			<node label="books.control" icon="packageIcon" expanded="true">
+				<node label="MainGlue.mxml" icon="mxmlIcon" url="source/books/control/MainGlue.mxml.html"/>
+			</node>
+			<node label="books.model" icon="packageIcon" expanded="true">
+				<node label="Author.as" icon="actionScriptIcon" url="source/books/model/Author.as.html"/>
+				<node label="Book.as" icon="actionScriptIcon" url="source/books/model/Book.as.html"/>
+				<node label="Browse.as" icon="actionScriptIcon" url="source/books/model/Browse.as.html"/>
+				<node label="Library.as" icon="actionScriptIcon" url="source/books/model/Library.as.html"/>
+				<node label="NavHistoryItem.as" icon="actionScriptIcon" url="source/books/model/NavHistoryItem.as.html"/>
+				<node label="Search.as" icon="actionScriptIcon" url="source/books/model/Search.as.html"/>
+			</node>
+			<node label="books.model.mock" icon="packageIcon" expanded="true">
+				<node label="MockData.mxml" icon="mxmlIcon" url="source/books/model/mock/MockData.mxml.html"/>
+			</node>
+			<node label="books.service" icon="packageIcon" expanded="true">
+				<node label="BrowseService.as" icon="actionScriptIcon" url="source/books/service/BrowseService.as.html"/>
+				<node label="SearchService.as" icon="actionScriptIcon" url="source/books/service/SearchService.as.html"/>
+			</node>
+			<node label="books.view" icon="packageIcon" expanded="true">
+				<node label="MainPagesView.mxml" icon="mxmlIcon" url="source/books/view/MainPagesView.mxml.html"/>
+				<node label="MainView.mxml" icon="mxmlIcon" url="source/books/view/MainView.mxml.html"/>
+			</node>
+			<node label="books.view.controls" icon="packageIcon" expanded="true">
+				<node label="SimpleSlide.mxml" icon="mxmlIcon" url="source/books/view/controls/SimpleSlide.mxml.html"/>
+			</node>
+			<node label="books.view.pages" icon="packageIcon" expanded="true">
+				<node label="AuthorPage.mxml" icon="mxmlIcon" url="source/books/view/pages/AuthorPage.mxml.html"/>
+				<node label="BookPage.mxml" icon="mxmlIcon" url="source/books/view/pages/BookPage.mxml.html"/>
+				<node label="ResultsPage.mxml" icon="mxmlIcon" url="source/books/view/pages/ResultsPage.mxml.html"/>
+				<node label="SearchPage.mxml" icon="mxmlIcon" url="source/books/view/pages/SearchPage.mxml.html"/>
+			</node>
+			<node selected="true" label="GlueLibrary.mxml" icon="mxmlAppIcon" url="source/GlueLibrary.mxml.html"/>
+		</node>
+	</nodes>
+</index>

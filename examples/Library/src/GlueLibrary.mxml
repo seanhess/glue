@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:view="books.view.*" xmlns:glue="books.glue.*" xmlns:control="books.control.*">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:view="books.view.*" xmlns:glue="books.glue.*" xmlns:control="books.control.*" viewSourceURL="srcview/index.html">
 	<control:MainGlue/>
 	<view:MainView verticalCenter="0" horizontalCenter="0"/>
 </mx:Application>

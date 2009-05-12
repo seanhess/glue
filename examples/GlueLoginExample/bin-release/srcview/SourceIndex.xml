@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of GlueLoginExample</title>
+	<nodes>
+		<node label="server">
+			<node label="login.php" url="source/server/login.php.txt"/>
+			<node label="logout.php" url="source/server/logout.php.txt"/>
+		</node>
+		<node label="src">
+			<node label="login.control" icon="packageIcon" expanded="true">
+				<node label="MainGlue.mxml" icon="mxmlIcon" url="source/login/control/MainGlue.mxml.html"/>
+			</node>
+			<node label="login.model" icon="packageIcon" expanded="true">
+				<node label="Application.as" icon="actionScriptIcon" url="source/login/model/Application.as.html"/>
+				<node label="Login.as" icon="actionScriptIcon" url="source/login/model/Login.as.html"/>
+				<node label="Navigation.as" icon="actionScriptIcon" url="source/login/model/Navigation.as.html"/>
+				<node label="User.as" icon="actionScriptIcon" url="source/login/model/User.as.html"/>
+			</node>
+			<node label="login.service" icon="packageIcon" expanded="true">
+				<node label="Authentication.as" icon="actionScriptIcon" url="source/login/service/Authentication.as.html"/>
+				<node label="DoNothingService.as" icon="actionScriptIcon" url="source/login/service/DoNothingService.as.html"/>
+				<node label="MockLoginService.as" icon="actionScriptIcon" url="source/login/service/MockLoginService.as.html"/>
+				<node label="ParseAuthResponses.as" icon="actionScriptIcon" url="source/login/service/ParseAuthResponses.as.html"/>
+			</node>
+			<node label="login.view" icon="packageIcon" expanded="true">
+				<node label="MainView.mxml" icon="mxmlIcon" url="source/login/view/MainView.mxml.html"/>
+			</node>
+			<node selected="true" label="GlueLoginExample.mxml" icon="mxmlAppIcon" url="source/GlueLoginExample.mxml.html"/>
+		</node>
+	</nodes>
+</index>
