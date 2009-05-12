@@ -26,8 +26,6 @@
 	</Glue>	
 
 
-
-
 	<!-- VIEWS -->
 	<Glue>
 		<views:MainUI id="main"/>
