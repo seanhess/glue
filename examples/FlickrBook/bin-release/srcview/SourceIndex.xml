@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of GlueFlickrBook</title>
+	<nodes>
+		<node label="libs">
+		</node>
+		<node label="src">
+			<node label="flickr.glue" icon="packageIcon" expanded="true">
+				<node label="MainGlue.mxml" icon="mxmlIcon" url="source/flickr/glue/MainGlue.mxml.html"/>
+			</node>
+			<node label="flickr.model" icon="packageIcon" expanded="true">
+				<node label="Config.as" icon="actionScriptIcon" url="source/flickr/model/Config.as.html"/>
+				<node label="Photo.as" icon="actionScriptIcon" url="source/flickr/model/Photo.as.html"/>
+				<node label="Photos.as" icon="actionScriptIcon" url="source/flickr/model/Photos.as.html"/>
+				<node label="Search.as" icon="actionScriptIcon" url="source/flickr/model/Search.as.html"/>
+			</node>
+			<node label="flickr.service" icon="packageIcon" expanded="true">
+				<node label="ApplicationService.mxml" icon="mxmlIcon" url="source/flickr/service/ApplicationService.mxml.html"/>
+				<node label="FlickrParser.as" icon="actionScriptIcon" url="source/flickr/service/FlickrParser.as.html"/>
+				<node label="MockPhotoService.mxml" icon="mxmlIcon" url="source/flickr/service/MockPhotoService.mxml.html"/>
+				<node label="PhotoService.mxml" icon="mxmlIcon" url="source/flickr/service/PhotoService.mxml.html"/>
+			</node>
+			<node label="flickr.ui.controls" icon="packageIcon" expanded="true">
+				<node label="ImageLoader.as" icon="actionScriptIcon" url="source/flickr/ui/controls/ImageLoader.as.html"/>
+			</node>
+			<node label="flickr.ui.renderers" icon="packageIcon" expanded="true">
+				<node label="Thumbnail.mxml" icon="mxmlIcon" url="source/flickr/ui/renderers/Thumbnail.mxml.html"/>
+			</node>
+			<node label="flickr.ui.views" icon="packageIcon" expanded="true">
+				<node label="MainUI.mxml" icon="mxmlIcon" url="source/flickr/ui/views/MainUI.mxml.html"/>
+				<node label="PhotoViewer.mxml" icon="mxmlIcon" url="source/flickr/ui/views/PhotoViewer.mxml.html"/>
+			</node>
+			<node selected="true" label="FlikrBook.mxml" icon="mxmlAppIcon" url="source/FlikrBook.mxml.html"/>
+		</node>
+	</nodes>
+</index>

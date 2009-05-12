@@ -1,0 +1,64 @@
+/* CSS file */
+
+Application{
+	backgroundGradientColors:#161616, #161616;
+	color:#dedede;
+	paddingLeft:0;
+	paddingRight:0;
+	paddingTop:0;
+	paddingBottom:0;
+}
+
+PhotoViewer{
+	verticalGap:0;	
+}
+
+TileList {
+	backgroundColor: #161616;
+	rollOverColor: #000000;
+	selectionColor: #D79C23;
+}
+
+PromptingTextInput{
+	backgroundColor: #363636;
+	cornerRadius: 10;
+	borderStyle: solid;
+	paddingTop:4;
+	paddingLeft:4;
+	paddingBotton:4;
+	themeColor: #f6ba57;
+	focusAlpha: 0.2;
+	borderColor: #777777;
+	focusThickness: 1;
+	color: #eeeeee;	
+}
+
+VRule{
+	strokeColor: #888888;
+	strokeWidth: 1;
+}
+
+Button{
+	upSkin: Embed(source="/assets/images/button_up.png", scaleGridLeft=10, scaleGridRight=80, scaleGridTop=20, scaleGridBottom=21 );
+	overSkin: Embed(source="/assets/images/button_over.png", scaleGridLeft=10, scaleGridRight=80, scaleGridTop=20, scaleGridBottom=21 );
+	downSkin: Embed(source="/assets/images/button_up.png", scaleGridLeft=10, scaleGridRight=80, scaleGridTop=20, scaleGridBottom=21  );
+	color: #333333;
+}
+.thumbnail {
+	paddingTop: 10;
+	paddingBottom: 10;
+	paddingLeft: 10;
+	paddingRight: 10;	
+}
+
+.topBar{
+	backgroundColor: #2E3032;
+	paddingTop: 10;
+	paddingLeft:10;
+	paddingBottom:5;
+	backgroundImage: Embed(source="/assets/images/top_bar_bg.png");
+	backgroundSize: "100%";
+	verticalAlign:middle;
+}
+
+/*Georgia italic*/
