@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of GlueCafeTownsend</title>
+	<nodes>
+		<node label="src">
+			<node label="assets">
+				<node label="data">
+					<node label="Employees.xml" url="source/assets/data/Employees.xml.txt"/>
+				</node>
+				<node label="images">
+					<node label="header.jpg" icon="imageIcon" url="source/assets/images/header.jpg.html"/>
+				</node>
+				<node label="styles">
+					<node label="main.css" icon="cssIcon" url="source/assets/styles/main.css.html"/>
+				</node>
+			</node>
+			<node label="cafe.glue" icon="packageIcon" expanded="true">
+				<node label="MainGlue.mxml" icon="mxmlIcon" url="source/cafe/glue/MainGlue.mxml.html"/>
+			</node>
+			<node label="cafe.manager" icon="packageIcon" expanded="true">
+				<node label="AuthorizationManager.as" icon="actionScriptIcon" url="source/cafe/manager/AuthorizationManager.as.html"/>
+				<node label="EmployeeManager.as" icon="actionScriptIcon" url="source/cafe/manager/EmployeeManager.as.html"/>
+			</node>
+			<node label="cafe.model" icon="packageIcon" expanded="true">
+				<node label="Employee.as" icon="actionScriptIcon" url="source/cafe/model/Employee.as.html"/>
+			</node>
+			<node label="cafe.service" icon="packageIcon" expanded="true">
+				<node label="EmployeeUtils.as" icon="actionScriptIcon" url="source/cafe/service/EmployeeUtils.as.html"/>
+				<node label="MockServices.mxml" icon="mxmlIcon" url="source/cafe/service/MockServices.mxml.html"/>
+			</node>
+			<node label="cafe.store" icon="packageIcon" expanded="true">
+				<node label="EmployeeStore.as" icon="actionScriptIcon" url="source/cafe/store/EmployeeStore.as.html"/>
+				<node label="NavigationStore.as" icon="actionScriptIcon" url="source/cafe/store/NavigationStore.as.html"/>
+			</node>
+			<node label="cafe.view" icon="packageIcon" expanded="true">
+				<node label="EmployeeDetail.mxml" icon="mxmlIcon" url="source/cafe/view/EmployeeDetail.mxml.html"/>
+				<node label="EmployeeList.mxml" icon="mxmlIcon" url="source/cafe/view/EmployeeList.mxml.html"/>
+				<node label="EmployeeLogin.mxml" icon="mxmlIcon" url="source/cafe/view/EmployeeLogin.mxml.html"/>
+				<node label="MainUI.mxml" icon="mxmlIcon" url="source/cafe/view/MainUI.mxml.html"/>
+			</node>
+			<node selected="true" label="GlueCafeTownsend.mxml" icon="mxmlAppIcon" url="source/GlueCafeTownsend.mxml.html"/>
+		</node>
+	</nodes>
+</index>
