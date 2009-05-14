@@ -1,14 +1,14 @@
-package net.seanhess.glue
+package net.seanhess.glue.tags
 {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	
 	import net.seanhess.bifff.behaviors.Listen;
+	import net.seanhess.glue.core.IGlueAction;
 
-	[Event(name="call", type="flash.events.Event")] 
-	public class GlueListen extends Listen implements IGlueAction
+	public class Route extends Listen implements IGlueAction
 	{
-		protected var on:IEventDispatcher;
+		public var from:IEventDispatcher;
 		
 		public function applyAction(target:*):void
 		{
@@ -19,8 +19,8 @@ package net.seanhess.glue
 		{
 			var dispatcher:IEventDispatcher;
 			
-			if (on) 
-				dispatcher = on;
+			if (from) 
+				dispatcher = from;
 
 			else
 				dispatcher = super.getDispatcher(target);

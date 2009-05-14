@@ -5,6 +5,8 @@
 		<![CDATA[
 			import books.model.Book;
 			
+			public static const SELECT_AUTHOR:String = "selectAuthor";
+			
 			[Bindable] public var book:Book;
 		]]>
 	</mx:Script>
@@ -13,7 +15,7 @@
 		<mx:Label text="{book.title}"/>
 	</mx:FormItem>
 	<mx:FormItem label="Author:">
-		<mx:Button id="authorButton" label="{book.author}"/>	
+		<mx:Button id="authorButton" label="{book.author}" click="dispatchEvent(new Event(SELECT_AUTHOR))"/>	
 	</mx:FormItem>
 	
 </mx:Form>

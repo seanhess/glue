@@ -1,4 +1,4 @@
-package net.seanhess.glue
+package net.seanhess.glue.core
 {
 	import net.seanhess.bifff.core.Executor;
 	import net.seanhess.bifff.core.Scope;

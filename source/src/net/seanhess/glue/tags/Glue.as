@@ -1,4 +1,4 @@
-package net.seanhess.glue
+package net.seanhess.glue.tags
 {
 	import flash.events.Event;
 	import flash.utils.getQualifiedClassName;
@@ -8,7 +8,8 @@ package net.seanhess.glue
 	import net.seanhess.bifff.core.Node;
 	import net.seanhess.bifff.core.Selector;
 	import net.seanhess.bifff.utils.Invalidator;
-	
+	import net.seanhess.glue.core.IGlueAction;
+
 	[DefaultProperty("stuff")]
 	public class Glue extends Selector
 	{

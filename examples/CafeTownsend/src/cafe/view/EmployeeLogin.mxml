@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" 
+	xmlns:mate="http://mate.asfusion.com/"
+	title="Employee Login">
+
+	<mx:Script>
+	    <![CDATA[
+			import cafe.store.NavigationStore;
+	    	import mx.core.UIComponent;
+	    	import mx.validators.Validator;
+	    	import mx.events.ValidationResultEvent;
+	    	
+	    	[Bindable] public var error:Boolean = false;
+	    	
+	    	public var username:String;
+	    	public var password:String;
+	    	
+			// mutate the loginBtn's click event into a cairngorm event			
+			private function loginEmployee() : void 
+			{
+				if (Validator.validateAll(validators).length == 0 )
+				{
+					username = usernameField.text;
+					password = passwordField.text;
+					dispatchEvent(new Event("login"));
+				}
+			}
+			
+			public function set authState(value:int):void
+			{
+				if (value == NavigationStore.LOGIN_FAILED)
+				{
+					error = true;
+				}
+				else
+				{
+					//successful login
+					// clear all fields otherwise they'll still be populated whenever the user returns here
+					error = false;
+					usernameField.text ='';
+					usernameField.errorString = "";
+					passwordField.text = '';
+					passwordField.errorString = "";
+				}
+				
+			}
+	    ]]>
+	</mx:Script>
+	
+	
+
+	<!-- GUI ______________________________________________________________________ -->
+	<mx:Text id="errorMessage" text="Invalid login information, please try again" visible="{error}" includeInLayout="{error}"/>
+
+	<mx:Form id="loginForm" defaultButton="{ loginBtn }">
+	  	<mx:FormItem label="Username:" required="true">
+	   		<mx:TextInput id="usernameField" enter="loginEmployee()"/>
+	   	</mx:FormItem>
+	   	<mx:FormItem label="Password:" required="true">
+	   		<mx:TextInput id="passwordField" displayAsPassword="true"  enter="loginEmployee()"/>
+	   	</mx:FormItem>
+	   	<mx:FormItem direction="horizontal" verticalGap="15" paddingTop="20">
+	   		<mx:Button id="loginBtn" label="Login" click="loginEmployee()"/>
+	   	</mx:FormItem>
+	</mx:Form>
+	<mx:Label htmlText="Username: Flex   Password: Glue" width="100%"/>
+
+	
+	<!-- Validators ______________________________________________________________________ -->
+	
+	<mx:Array id="validators">
+		<mx:StringValidator id="vUsername" source="{ usernameField }" property="text" required="true"/>
+	    <mx:StringValidator id="vPassword" source="{ passwordField }" property="text" required="true"/>
+	</mx:Array>
+
+</mx:Panel>

@@ -1,4 +1,4 @@
-package net.seanhess.glue
+package net.seanhess.glue.core
 {
 	public interface IGlueAction
 	{

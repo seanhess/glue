@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:view="cafe.view.*" xmlns:manager="cafe.manager.*" xmlns:business="com.cafetownsend.business.*" xmlns:store="cafe.store.*" xmlns:bifff="http://bifff.seanhess.net/2009" xmlns:service="cafe.service.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+		]]>
+	</mx:Script>
+	
+	<!-- Storage -->
+	<store:EmployeeStore id="employees"/>
+	<store:NavigationStore id="navigation"/>
+	
+	<!-- Manager -->
+	<manager:AuthorizationManager id="authManager" 
+		navigation="{navigation}"
+	/>
+	
+	<manager:EmployeeManager id="employeeManager" 
+		employees="{employees}" 
+		utils="{utils}" 
+		navigation="{navigation}"
+		loadEmployeeService="{mock.employeesService}"
+	/>
+	
+	<!-- Services -->
+	<service:MockServices id="mock"/>
+	<service:EmployeeUtils id="utils"/>
+	
+	<!-- Views -->
+	<Glue match="MainUI">
+		<Inject selectedPage="{navigation.mainPage}"/>
+		<Route event="{FlexEvent.CREATION_COMPLETE}" call="employeeManager.loadEmployees()"/> 
+	</Glue>
+	
+	<Glue match="EmployeeLogin">
+		<Inject authState="{navigation.authState}"/>
+		<Route event="login" call="authManager.login(scope.target.username, scope.target.password)"/>
+	</Glue>
+	
+	<Glue match="EmployeeList">
+		<Inject employees="{employees.employeeList}"/>
+		<Route event="logout" call="authManager.logout()"/>
+		<Route event="newEmployee" call="employeeManager.newEmployee()"/>
+		<Route event="selectEmployee" call="employeeManager.selectEmployee(scope.target.selectedEmployee)"/>
+	</Glue>
+	
+	<Glue match="EmployeeDetail">
+		<Inject selectedEmployee="{employees.employee}"/>
+		<Route event="back" call="employeeManager.goBack()"/>
+		<Route event="remove" call="employeeManager.deleteEmployee(employees.employee)"/>
+		<Route event="save" call="employeeManager.saveEmployee(view.tempEmployee)"/>
+	</Glue>
+	
+	
+	
+</GlueMap>

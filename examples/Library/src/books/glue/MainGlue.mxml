@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Controller xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*" xmlns:model="books.model.*" xmlns:service="books.service.*">
+<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*" xmlns:model="books.model.*" xmlns:service="books.service.*">
 
 	<mx:Script>
 		<![CDATA[
@@ -38,15 +38,15 @@
 		<Inject child="{pages.browseResults}" books="{library.books}" authors="{library.authors}"/>
 		<Inject child="{pages.searchResults}" books="{search.bookResults}" authors="{search.authorResults}"/>
 		
-		<Route child="{pages.back}" event="click" call="browseService.goBack()"/>
+		<Route event="{MainPagesView.GO_BACK}" call="browseService.goBack()"/>
 		
-		<Observe model="{browse}" event="goBack" call="pages.goBack()"/>
-		<Observe model="{browse}" event="showSearch" call="pages.showSearch()"/>
-		<Observe model="{browse}" event="showBrowse" call="pages.showBrowse()"/>
-		<Observe model="{browse}" event="showBook" call="pages.showBook()"/>
-		<Observe model="{browse}" event="showAuthor" call="pages.showAuthor()"/>
+		<Route event="goBack" 		from="{browse}" to="pages.goBack()"/>
+		<Route event="showSearch" 	from="{browse}" to="pages.showSearch()"/>
+		<Route event="showBrowse" 	from="{browse}" to="pages.showBrowse()"/>
+		<Route event="showBook" 	from="{browse}" to="pages.showBook()"/>
+		<Route event="showAuthor" 	from="{browse}" to="pages.showAuthor()"/>
 		
-		<Observe model="{search}" event="search" call="pages.showSearchResults()"/>
+		<Route event="search"		from="{search}" call="pages.showSearchResults()"/>
 	</Glue>
 	
 	<Glue>
@@ -61,13 +61,21 @@
 	<Glue>
 		<pages:BookPage id="bookView"/>
 		<Inject book="{browse.currentBook}"/>
-		<Route child="{bookView.authorButton}" event="click" call="browseService.showAuthor(bookView.book.author)"/>
+		<Route event="{BookPage.SELECT_AUTHOR}" call="browseService.showAuthor(bookView.book.author)"/>
 	</Glue>
+	
+	<!-- It would be really cool if I could just do this -->
+	
+	<!--
+		<pages:AuthorPage selectBook="" author="{browse.currentAuthor}"/>
+		
+		
+	-->
 	
 	<Glue>
 		<pages:AuthorPage id="authorView"/>	
 		<Inject author="{browse.currentAuthor}"/>
-		<Route child="{authorView.booksList}" event="itemClick" call="browseService.showBook(authorView.booksList.selectedItem as Book)"/>
+		<Route event="{AuthorPage.SELECT_BOOK}" call="browseService.showBook(authorView.booksList.selectedItem as Book)"/>
 	</Glue>
 	
 	<Glue>
@@ -75,4 +83,4 @@
 		<Route child="{searchView.searchBtn}" event="click" call="searchService.doSearch(searchView.input.text)"/>
 	</Glue>
 
-</Controller>
+</GlueMap>

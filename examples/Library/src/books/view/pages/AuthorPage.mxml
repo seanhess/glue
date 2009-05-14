@@ -6,7 +6,17 @@
 			import books.model.Author;
 			import books.model.Book;
 			
+			public static const SELECT_BOOK:String = "selectBook";
+			
 			[Bindable] public var author:Author
+			
+			public var selectedBook:Book;
+			
+			private function onBookClick():void
+			{
+				selectedBook = booksList.selectedItem as Book;	
+				dispatchEvent(new Event(SELECT_BOOK));
+			}
 		]]>
 	</mx:Script>
 	
@@ -14,7 +24,7 @@
 		<mx:Label text="{author.name}"/>
 	</mx:FormItem>
 	<mx:FormItem label="Books:">
-		<mx:List id="booksList" dataProvider="{author.books}"/>
+		<mx:List id="booksList" dataProvider="{author.books}" itemClick="onBookClick()"/>
 	</mx:FormItem>
 	
 </mx:Form>

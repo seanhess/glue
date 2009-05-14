@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" width="100%"
+	title="Employee List" xmlns:model="com.cafetownsend.model.*">
+
+	<mx:Script> 
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import cafe.model.Employee;
+	
+			[Bindable]
+			public var employees:ArrayCollection = null;
+			
+			public var selectedEmployee:Employee;
+
+			// mutate the add new employee button's click event
+			public function addNewEmployee() : void 
+			{
+				dispatchEvent(new Event("newEmployee"));
+				clearSelectedEmployee();
+			}
+
+			// mutate the List's change event
+			public function selectEmployee() : void 
+			{
+				selectedEmployee = employees_li.selectedItem as Employee;
+				dispatchEvent(new Event("selectEmployee"));
+				clearSelectedEmployee();
+			}
+			
+			// send logout event
+			private function logout() : void 
+			{
+				dispatchEvent(new Event("logout"));
+			}
+
+			// format the names that are displayed in the List
+			public function properName( dpItem : Object ) : String {
+				return dpItem.lastname + ", " + dpItem.firstname;
+			}
+			
+			// de-select any selected List items
+			private function clearSelectedEmployee() : void {
+				employees_li.selectedIndex = -1;
+			}
+		]]>
+	</mx:Script>
+	
+	
+	<mx:HBox>
+		<mx:Button label="Add New Employee" click="addNewEmployee()" />
+		<mx:Button label="Logout" click="logout()" />
+	</mx:HBox>
+
+	<mx:List id="employees_li" 
+		dataProvider="{employees}" 
+		labelFunction="properName"
+		change="selectEmployee()" 
+		width="100%" />
+
+</mx:Panel>

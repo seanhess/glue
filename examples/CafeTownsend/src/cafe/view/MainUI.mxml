@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" height="100%" xmlns:view="cafe.view.*">
+	
+	<mx:Script>
+		<![CDATA[
+			[Bindable] public var selectedPage:int;
+		]]>
+	</mx:Script>
+	
+	<mx:Image source="assets/images/header.jpg" width="700" />
+	<mx:HBox styleName="mainBody" width="700" height="100%">
+	<mx:ViewStack id="viewStack" resizeToContent="true" selectedIndex="{selectedPage}">
+		<view:EmployeeLogin />
+		<view:EmployeeList  />
+		<view:EmployeeDetail/>
+	</mx:ViewStack>
+	</mx:HBox>
+	
+</mx:VBox>

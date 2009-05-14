@@ -1,16 +1,22 @@
-package net.seanhess.glue
+package net.seanhess.glue.tags
 {
 	import flash.events.Event;
 	
 	import net.seanhess.bifff.core.BehaviorMap;
 	import net.seanhess.bifff.core.ISelector;
 	import net.seanhess.bifff.utils.Debug;
-	
+	import net.seanhess.glue.core.GlueExecutor;
+
 	/**
 	 * So, how do I know when to actually execute? (Timer .... )
 	 */
-	public class Controller extends BehaviorMap
+	public class GlueMap extends BehaviorMap
 	{
+		public function get view():*
+		{
+			return scope.target;
+		}
+		
 		override protected function initializeSelector(selector:ISelector):void
 		{
 			super.initializeSelector(selector);

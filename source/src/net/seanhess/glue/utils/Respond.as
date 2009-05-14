@@ -1,4 +1,4 @@
-package net.seanhess.glue
+package net.seanhess.glue.utils
 {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;

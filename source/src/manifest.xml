@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <componentPackage>    
-	<component class="net.seanhess.glue.Inject"/>
-	<component class="net.seanhess.glue.Glue"/>
-	<component class="net.seanhess.glue.IGlueAction"/>
-	<component class="net.seanhess.glue.Observe"/>
-	<component class="net.seanhess.glue.Respond"/>
-	<component class="net.seanhess.glue.Controller"/>
-	<component class="net.seanhess.glue.Route"/>
+	<component class="net.seanhess.glue.core.IGlueAction"/>
+	<component class="net.seanhess.glue.tags.Inject"/>
+	<component class="net.seanhess.glue.tags.Glue"/>
+	<component class="net.seanhess.glue.tags.GlueMap"/>
+	<component class="net.seanhess.glue.tags.Route"/>
+	<component class="net.seanhess.glue.utils.Respond"/>
 </componentPackage>

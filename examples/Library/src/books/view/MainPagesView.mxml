@@ -3,6 +3,8 @@
 	
 	<mx:Script>
 		<![CDATA[
+			public static const GO_BACK:String = "goBack";
+		
 			public function showBrowse():void
 			{
 				slide.reset(browseResults);
@@ -33,11 +35,16 @@
 				slide.hide();
 			}
 			
+			private function onBackClick():void
+			{
+				dispatchEvent(new Event(GO_BACK));
+			}
+			
 		]]>
 	</mx:Script>
 	
 	<mx:HBox>
-		<mx:Button id="back" label="Back"/>
+		<mx:Button id="back" label="Back" click="onBackClick()"/>
 	</mx:HBox>
 	
 	<controls:SimpleSlide id="slide" width="100%" height="100%">

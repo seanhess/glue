@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" width="100%" 
+	xmlns:vos="com.cafetownsend.vos.*" xmlns:mate="http://mate.asfusion.com/"
+	title="Employee Details" xmlns:model="cafe.model.*">
+
+	<mx:Script>
+		<![CDATA[
+			import cafe.model.Employee;
+	    	import mx.events.ValidationResultEvent;
+			import mx.controls.Alert;
+            import mx.events.CloseEvent;
+            import mx.validators.Validator;
+			
+			[Bindable]
+			public var selectedEmployee:cafe.model.Employee;
+			
+			// mutate the back button's click event
+			private function cancelEmployeeEdits() : void 
+			{
+				dispatchEvent(new Event("back"));
+			}
+
+			// the delete button's click event is an Alert asking them to verify the delete
+			// the Alert's closeHandler is directed here to be mutated into a cairngorm event if the answer was OK
+			private function deleteEmployee( cEvent:CloseEvent ) : void {
+				// was the Alert event an OK
+				if ( cEvent.detail == Alert.OK )
+					dispatchEvent(new Event("remove")); 
+			}
+
+			// mutate the submit button's click event
+			private function saveEmployeeEdits():void {
+				// first, validate the fields
+				var results:Array = Validator.validateAll(validators);
+				
+				// if any of the fields were not valid
+				if (results.length > 0) {
+					return;
+				}
+				
+				dispatchEvent(new Event("save"));
+			}
+			
+		]]>
+	</mx:Script>
+	
+	
+	
+	<model:Employee id="tempEmployee">
+		<model:firstname>{firstname.text}</model:firstname>
+		<model:lastname>{lastname.text}</model:lastname>
+		<model:email>{email.text}</model:email>
+		<model:startdate>{startdate.selectedDate}</model:startdate>
+		<model:emp_id>{selectedEmployee.emp_id}</model:emp_id>
+	</model:Employee>
+	
+	
+	<mx:Button label="&lt;&lt; Back" click="cancelEmployeeEdits()" />
+	<mx:Form defaultButton="{submit}">
+		<mx:FormItem label="First Name:"  required="true">
+			<mx:TextInput id="firstname" text="{ selectedEmployee.firstname}" />
+		</mx:FormItem>
+		<mx:FormItem label="Last Name:"  required="true">
+			<mx:TextInput id="lastname" text="{selectedEmployee.lastname}" />
+		</mx:FormItem>
+		<mx:FormItem label="Start Date:">
+			<mx:DateField id="startdate" selectedDate="{selectedEmployee.startdate}" />
+		</mx:FormItem>
+		<mx:FormItem label="Email:"  required="true">
+			<mx:TextInput id="email" text="{selectedEmployee.email}" />
+		</mx:FormItem>
+		<mx:FormItem direction="horizontal">
+			<mx:Button label="Submit" click="saveEmployeeEdits()" id="submit" />
+			<mx:Button label="Delete"
+				click="Alert.show(	'Are you sure you want to delete this employee?',
+									null,
+									Alert.OK | Alert.CANCEL,
+									this,
+									deleteEmployee,
+									null,
+									Alert.OK );" />
+		</mx:FormItem>
+	</mx:Form>
+	
+	<mx:Array id="validators">
+	    <mx:StringValidator id="vFirstname" source="{firstname}" property="text" required="true" />
+	    <mx:StringValidator id="vLastName"  source="{lastname}" property="text" required="true" />
+	    <mx:StringValidator id="vEmail"  	source="{email}" 	property="text" required="true" />
+	</mx:Array>
+	
+</mx:Panel>
