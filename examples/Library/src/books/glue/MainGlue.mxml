@@ -58,29 +58,18 @@
 	<!-- 
 		I could use MouseEvent.click instead of click here if I cared
 	-->
-	<Glue>
-		<pages:BookPage id="bookView"/>
+	<Glue match="BookView">
 		<Inject book="{browse.currentBook}"/>
-		<Route event="{BookPage.SELECT_AUTHOR}" call="browseService.showAuthor(bookView.book.author)"/>
+		<Route event="{BookPage.SELECT_AUTHOR}" call="browseService.showAuthor(view.book.author)"/>
 	</Glue>
 	
-	<!-- It would be really cool if I could just do this -->
-	
-	<!--
-		<pages:AuthorPage selectBook="" author="{browse.currentAuthor}"/>
-		
-		
-	-->
-	
-	<Glue>
-		<pages:AuthorPage id="authorView"/>	
+	<Glue match="AuthorPage">
 		<Inject author="{browse.currentAuthor}"/>
-		<Route event="{AuthorPage.SELECT_BOOK}" call="browseService.showBook(authorView.booksList.selectedItem as Book)"/>
+		<Route event="{AuthorPage.SELECT_BOOK}" call="browseService.showBook(view.booksList.selectedItem as Book)"/>
 	</Glue>
 	
-	<Glue>
-		<pages:SearchPage id="searchView"/>
-		<Route child="{searchView.searchBtn}" event="click" call="searchService.doSearch(searchView.input.text)"/>
+	<Glue match="SearchPage">
+		<Route event="search" call="searchService.doSearch(view.search)"/>
 	</Glue>
 
 </GlueMap>

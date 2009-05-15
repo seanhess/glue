@@ -24,10 +24,10 @@
 		<service:PhotoService 		id="photoService" 		photos="{photos}" config="{config}"/>
 		<Observe model="{config}" 	event="{Config.LOADED}" call="photoService.getInterestingness()"/>	
 	</Glue>	
-
-
+	
 	<!-- VIEWS -->
-	<Glue>
+	
+	<Glue match=".mainInterface>
 		<views:MainUI id="main"/>
 		<Route event="{FlexEvent.CREATION_COMPLETE}" 	call="appService.loadConfig()"/>
 		<Route event="{MainUI.INTERESTINGNESS}" 		call="photoService.getInterestingness()"/>

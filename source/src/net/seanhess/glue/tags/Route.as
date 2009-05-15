@@ -8,30 +8,30 @@ package net.seanhess.glue.tags
 
 	public class Route extends Listen implements IGlueAction
 	{
-		public var from:IEventDispatcher;
+//		public var from:IEventDispatcher;
 		
 		public function applyAction(target:*):void
 		{
 			this.target = target;
 		}
 		
-		override protected function getDispatcher(target:*):IEventDispatcher
-		{
-			var dispatcher:IEventDispatcher;
-			
-			if (from) 
-				dispatcher = from;
-
-			else
-				dispatcher = super.getDispatcher(target);
-			
-			return dispatcher;
-		}
+//		override protected function getDispatcher(target:*):IEventDispatcher
+//		{
+//			var dispatcher:IEventDispatcher;
+//			
+//			if (from) 
+//				dispatcher = from;
+//
+//			else
+//				dispatcher = super.getDispatcher(target);
+//			
+//			return dispatcher;
+//		}
 		
-		override protected function eventFiring(target:*, event:Event):void
-		{
-			super.eventFiring(target, event);
-			(parent.selector as Glue).setCurrentInstance(target);
-		}
+//		override protected function eventFiring(target:*, event:Event):void
+//		{
+//			super.eventFiring(target, event);
+//			(parent.selector as Glue).setCurrentInstance(target);
+//		}
 	}
 }
