@@ -1,4 +1,4 @@
-package flickr.model
+package flickr.store
 {
 	import flash.events.EventDispatcher;
 

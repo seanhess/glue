@@ -1,4 +1,4 @@
-package flickr.model
+package flickr.store
 {	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -9,10 +9,5 @@ package flickr.model
 	public class Photos extends EventDispatcher
 	{	
 		public var currentSet:ArrayCollection;
-
-		public function storePhotos(photos:Array):void
-		{	
-			currentSet = new ArrayCollection(photos);
-		}
 	}
 }

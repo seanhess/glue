@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:business="flickr.business.*" xmlns:model="flickr.model.*" xmlns:service="flickr.service.*">
+
+	<mx:Array id="list">
+		<model:Photo farmId="1" photoId="3263147997" isPublic="true" secret="ba252ca104" serverId="241" title="RIA-Survey"/>
+		<model:Photo farmId="4" photoId="3102433937" isPublic="true" secret="fdb85613e4" serverId="3237" title="bW.Calc-iT"/>
+		<model:Photo farmId="4" photoId="3052457714" isPublic="true" secret="ab49c8e883" serverId="3182" title="Trixie and Flex"/>
+		<model:Photo farmId="4" photoId="2948015888" isPublic="true" secret="3178196411" serverId="3207" title="Eboy"/>
+		<model:Photo farmId="4" photoId="2936186907" isPublic="true" secret="27aa5f4888" serverId="3157" title="MiamiPHP Pool Party"/>
+		<model:Photo farmId="4" photoId="2937041802" isPublic="true" secret="ece54ba500" serverId="3198" title="MiamiPHP Pool Party"/>
+		<model:Photo farmId="4" photoId="2936187195" isPublic="true" secret="9445a9551e" serverId="3249" title="MiamiPHP Pool Party - Paul"/>
+		<model:Photo farmId="4" photoId="2936187647" isPublic="true" secret="92438b093f" serverId="3207" title="MiamiPHP Pool Party"/>
+		<model:Photo farmId="4" photoId="2936187059" isPublic="true" secret="22d484729c" serverId="3009" title="MiamiPHP Pool Party"/>
+	</mx:Array>
+
+	<mx:Script>
+		<![CDATA[
+			import flickr.model.Photos;
+			import flickr.model.Search;
+			
+			[Bindable] public var photos:Photos;
+		
+			public function getInterestingness():void
+			{
+				photos.storePhotos(list);
+			}
+			
+			public function search(value:Search):void
+			{
+				getInterestingness();
+			}
+		]]>
+	</mx:Script>
+
+</mx:Object>
