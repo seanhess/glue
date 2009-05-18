@@ -4,4 +4,6 @@
 	<component class="net.seanhess.glue.tags.Glue"/>
 	<component class="net.seanhess.glue.tags.GlueMap"/>
 	<component class="net.seanhess.glue.tags.Route"/>
+	<component class="net.seanhess.glue.tags.Command"/>
+	<component class="net.seanhess.glue.tags.Action"/>
 </componentPackage>
