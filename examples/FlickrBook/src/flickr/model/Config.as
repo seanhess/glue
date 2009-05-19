@@ -1,12 +1,10 @@
-package flickr.store
+package flickr.models
 {
 	import flash.events.EventDispatcher;
 
 	[Bindable]
-	public class Config extends EventDispatcher
+	public class Config
 	{
-		public static const LOADED:String = "loaded";
-		
 		public var url:String = 'http://api.flickr.com/services/rest/';
 		public var key:String = '';		
 		
@@ -14,7 +12,6 @@ package flickr.store
 		{
 			this.url = url;
 			this.key = key;
-			dispatchEvent(new Event(LOADED));	
 		}
 	}
 }

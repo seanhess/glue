@@ -15,20 +15,20 @@
 
 	<mx:Script>
 		<![CDATA[
-			import flickr.model.Photos;
-			import flickr.model.Search;
+//			import flickr.model.Photos;
+//			import flickr.model.Search;
 			
-			[Bindable] public var photos:Photos;
+//			[Bindable] public var photos:Photos;
 		
-			public function getInterestingness():void
-			{
-				photos.storePhotos(list);
-			}
-			
-			public function search(value:Search):void
-			{
-				getInterestingness();
-			}
+//			public function getInterestingness():void
+//			{
+//				photos.storePhotos(list);
+//			}
+////			
+//			public function search(value:Search):void
+//			{
+//				getInterestingness();
+//			}
 		]]>
 	</mx:Script>
 

@@ -1,42 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Controller xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:views="flickr.ui.views.*" xmlns:business="flickr.business.*" xmlns:service="flickr.service.*" xmlns:model="flickr.model.*" xmlns:control="flickr.control.*">
+<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:views="flickr.ui.views.*" xmlns:business="flickr.business.*" xmlns:service="flickr.service.*" xmlns:model="flickr.model.*" xmlns:control="flickr.control.*" xmlns:store="flickr.store.*">
 
 	<mx:Script>
 		<![CDATA[
+			import flickr.ui.views.MainUI;
 			import mx.events.FlexEvent;
 		]]>
 	</mx:Script>
 
-
-
-
+	<!-- COMMAND -->
+	<Command id="initialize">
+		<Action watch="{appService}" call="appService.loadConfig()">
+			<config>
+				<Action call="config.setValues(appService.config.url, appService.config.key)"/>
+				<Action call="loadInterestingness.execute()"/>
+			</config>
+		</Action>
+	</Command>
+	
+	<Command id="loadInterestingness">
+		<Action watch="{flickrService}" call="flickrService.getInterestingness()">
+			<result>
+				<Action call="photos.storePhotos(scope.event.result)"/> 
+			</result>
+		</Action>
+	</Command>
+	
+	<Command id="runSearch" search="Set search to be an object with tags and user">
+		<Action watch="{flickrService}" call="flickrService.search(scope.search)">
+			<result>
+				<Action call="photos.storePhotos(scope.event.result)"/>
+			</result>
+		</Action>
+	</Command>
 
 	<!-- MODELS :: These are the main models -->	
-	<model:Photos id="photos"/>
-	<model:Config id="config"/>
-	
+	<store:Photos id="photos"/>
+	<store:Config id="config"/>
 	
 	<!-- SERVICES :: Controllers can manipulate models and call other services -->
-	<service:ApplicationService id="appService" 		config="{config}"/>
-	<service:MockPhotoService 	id="mockPhotoService"	photos="{photos}" />
-
-	<Glue>
-		<service:PhotoService 		id="photoService" 		photos="{photos}" config="{config}"/>
-		<Observe model="{config}" 	event="{Config.LOADED}" call="photoService.getInterestingness()"/>	
-	</Glue>	
+	<service:ApplicationService id="appService"/>
+	<service:MockFlickrService 	id="mockFlickr"/>
+	<service:FlickrService 		id="flickrService" config="{config}"/>
 	
 	<!-- VIEWS -->
-	
-	<Glue match=".mainInterface>
-		<views:MainUI id="main"/>
-		<Route event="{FlexEvent.CREATION_COMPLETE}" 	call="appService.loadConfig()"/>
-		<Route event="{MainUI.INTERESTINGNESS}" 		call="photoService.getInterestingness()"/>
-		<Route event="{MainUI.SEARCH}" 					call="photoService.search(main.search)"/>
+	<Glue match="MainUI">
+		<Route event="{FlexEvent.CREATION_COMPLETE}" 	call="initialize.execute()"/>
+		<Route event="{MainUI.INTERESTINGNESS}" 		call="loadInterestingness.execute()"/>
+		<Route event="{MainUI.SEARCH}" 					call="runSearch.execute({search:view.search})"/>
 	</Glue>
 	
-	<Glue>
-		<views:PhotoViewer id="photoViewer"/>
+	<Glue match="PhotoViewer">
 		<Inject currentSet="{photos.currentSet}"/>
 	</Glue>
 
-</Controller>
+</GlueMap>

@@ -40,6 +40,9 @@ package net.seanhess.glue.tags
 		{
 			if (value is Action)
 				value = [value];
+				
+			if (value is String)
+				return;
 			
 			if (!(value is Array))
 				throw new Error("Use <eventName> to specify a list of actions to perform");
