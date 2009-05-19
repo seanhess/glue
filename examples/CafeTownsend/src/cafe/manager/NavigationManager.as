@@ -12,5 +12,15 @@ package cafe.manager
 		{
 			currentPage = (state == Authentication.AUTHENTICATED) ? Navigation.LIST : Navigation.LOGIN;
 		}
+		
+		public function showEmployee():void
+		{
+			currentPage = Navigation.DETAILS;
+		}
+		
+		public function goBack():void
+		{
+			currentPage = Navigation.LIST;
+		}
 	}
 }

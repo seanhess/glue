@@ -44,12 +44,22 @@ package cafe.manager
 		}
 		
 		// -----------------------------------------------------------
-		public function deleteEmployee (employee:Employee) : void {
+		public function deleteEmployee () : void {
 			
 			_employeeList.removeItemAt(_employeeList.getItemIndex(employee));
 
 			// clear out the selected employee just in case
 			selectEmployee(null);
+		}
+		
+		public function newEmployee():void
+		{
+			var employee:Employee = new Employee();
+				employee.firstname = "";
+				employee.lastname = "";
+				
+			saveEmployee(employee);
+			selectEmployee(employee);
 		}
 
 		// -----------------------------------------------------------

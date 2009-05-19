@@ -16,7 +16,7 @@ package net.seanhess.glue.tags
 		protected var dispatcher:IEventDispatcher = new EventDispatcher();
 		protected var listeners:Dictionary = new Dictionary();
 
-		public function execute():void
+		public function execute():void 
 		{
 			addListeners();
 			dispatchEvent(new Event("call"));

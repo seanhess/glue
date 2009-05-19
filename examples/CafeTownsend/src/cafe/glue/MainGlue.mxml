@@ -6,20 +6,55 @@
 		]]>
 	</mx:Script>
 	
+	<!-- You can put related commands in a separate file if you like. Pass in the references of the actual managers -->
+	<Command id="loadEmployees">
+		<Action watch="{employeesService}" call="employeesService.send()">
+			<result>
+				<Action call="scope.employees = parser.loadEmployeesFromXML(scope.event.result)"/>
+				<Action call="employeeManager.saveEmpoyeeList(scope.employees)"/>
+			</result>
+		</Action>
+	</Command>
+	
 	<Command id="login" user="user" pass="pass">
 		<Action call="authManager.login(scope.user, scope.pass)"/>
 		<Action call="navManager.loginChanged(authManager.state)"/>
+	</Command>
+	
+	<Command id="logout">
+		<Action call="authManager.logout()"/>
+		<Action call="navManager.loginChanged(authManager.state)"/>
+	</Command>
+	
+	<Command id="newEmployee">
+		<Action call="navManager.showEmployee()"/>
+		<Action call="employeeManager.newEmployee()"/>
+	</Command>
+	
+	<Command id="selectEmployee" employee="none">
+		<Action call="employeeManager.selectEmployee(scope.employee)"/>
+		<Action call="navManager.showEmployee()"/>
+	</Command>
+	
+	<Command id="deleteEmployee">
+		<Action call="employeeManager.deleteEmployee()"/>
+		<Action call="navManager.goBack()"/>
+	</Command>
+	
+	<Command id="saveEmployee" employee="none">
+		<Action call="employeeManager.saveEmployee(scope.employee)"/>
+		<Action call="navManager.goBack()"/>
 	</Command>
 	
 	<!-- Manager -->
 	<manager:AuthorizationManager id="authManager" />
 	<manager:EmployeeManager id="employeeManager" />
 	<manager:NavigationManager id="navManager"/>
-		
+	
 	<!-- Views -->
 	<Glue match="MainUI">
 		<Inject selectedPage="{navManager.currentPage}"/>
-		<!--<Route event="{FlexEvent.CREATION_COMPLETE}" call="employeeManager.loadEmployees()"/>--> 
+		<Route event="{FlexEvent.CREATION_COMPLETE}" call="loadEmployees.execute()"/> 
 	</Glue>
 	
 	<Glue match="EmployeeLogin">
@@ -27,21 +62,22 @@
 		<Route event="login" call="login.execute({user:view.username, pass:view.password})"/>
 	</Glue>
 	
-	<!--<Glue match="EmployeeList">
-		<Inject employees="{employees.employeeList}"/>
-		<Route event="logout" call="authManager.logout()"/>
-		<Route event="newEmployee" call="employeeManager.newEmployee()"/>
-		<Route event="selectEmployee" call="employeeManager.selectEmployee(scope.target.selectedEmployee)"/>
+	<Glue match="EmployeeList">
+		<Inject employees="{employeeManager.employeeList}"/>
+		<Route event="logout" call="logout.execute()"/>
+		<Route event="newEmployee" call="newEmployee.execute()"/>
+		<Route event="selectEmployee" call="selectEmployee.execute({employee:view.selectedEmployee})"/>
 	</Glue>
 	
 	<Glue match="EmployeeDetail">
-		<Inject selectedEmployee="{employees.employee}"/>
-		<Route event="back" call="employeeManager.goBack()"/>
-		<Route event="remove" call="employeeManager.deleteEmployee(employees.employee)"/>
-		<Route event="save" call="employeeManager.saveEmployee(view.tempEmployee)"/>
-	</Glue>-->
+		<Inject selectedEmployee="{employeeManager.employee}"/>
+		<Route event="back" call="navManager.goBack()"/>
+		<Route event="remove" call="deleteEmployee.execute()"/>
+		<Route event="save" call="saveEmployee.execute({employee:view.tempEmployee})"/>
+	</Glue>
 	
 	<!-- Services :: Put these in another file -->
 	<mx:HTTPService id="employeesService" url="assets/data/Employees.xml" resultFormat="e4x" />
+	<service:EmployeeParser id="parser"/>
 	
 </GlueMap>

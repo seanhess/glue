@@ -1,6 +1,6 @@
 package cafe.service
 {
-	import com.cafetownsend.vos.Employee;
+	import cafe.vo.Employee;
 	
 	public class EmployeeParser
 	{
