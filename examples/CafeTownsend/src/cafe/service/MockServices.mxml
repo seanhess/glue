@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml">
-
-	<mx:HTTPService id="employeesService" url="assets/data/Employees.xml" resultFormat="e4x" />
-	
-</mx:Object>

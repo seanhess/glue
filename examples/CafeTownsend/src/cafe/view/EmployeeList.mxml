@@ -5,7 +5,7 @@
 	<mx:Script> 
 		<![CDATA[
 			import mx.collections.ArrayCollection;
-			import cafe.model.Employee;
+			import cafe.vo.Employee;
 	
 			[Bindable]
 			public var employees:ArrayCollection = null;

@@ -6,38 +6,28 @@
 		]]>
 	</mx:Script>
 	
-	<!-- Storage -->
-	<store:EmployeeStore id="employees"/>
-	<store:NavigationStore id="navigation"/>
+	<Command id="login" user="user" pass="pass">
+		<Action call="authManager.login(scope.user, scope.pass)"/>
+		<Action call="navManager.loginChanged(authManager.state)"/>
+	</Command>
 	
 	<!-- Manager -->
-	<manager:AuthorizationManager id="authManager" 
-		navigation="{navigation}"
-	/>
-	
-	<manager:EmployeeManager id="employeeManager" 
-		employees="{employees}" 
-		utils="{utils}" 
-		navigation="{navigation}"
-		loadEmployeeService="{mock.employeesService}"
-	/>
-	
-	<!-- Services -->
-	<service:MockServices id="mock"/>
-	<service:EmployeeUtils id="utils"/>
-	
+	<manager:AuthorizationManager id="authManager" />
+	<manager:EmployeeManager id="employeeManager" />
+	<manager:NavigationManager id="navManager"/>
+		
 	<!-- Views -->
 	<Glue match="MainUI">
-		<Inject selectedPage="{navigation.mainPage}"/>
-		<Route event="{FlexEvent.CREATION_COMPLETE}" call="employeeManager.loadEmployees()"/> 
+		<Inject selectedPage="{navManager.currentPage}"/>
+		<!--<Route event="{FlexEvent.CREATION_COMPLETE}" call="employeeManager.loadEmployees()"/>--> 
 	</Glue>
 	
 	<Glue match="EmployeeLogin">
-		<Inject authState="{navigation.authState}"/>
-		<Route event="login" call="authManager.login(scope.target.username, scope.target.password)"/>
+		<Inject authState="{authManager.state}"/>
+		<Route event="login" call="login.execute({user:view.username, pass:view.password})"/>
 	</Glue>
 	
-	<Glue match="EmployeeList">
+	<!--<Glue match="EmployeeList">
 		<Inject employees="{employees.employeeList}"/>
 		<Route event="logout" call="authManager.logout()"/>
 		<Route event="newEmployee" call="employeeManager.newEmployee()"/>
@@ -49,8 +39,9 @@
 		<Route event="back" call="employeeManager.goBack()"/>
 		<Route event="remove" call="employeeManager.deleteEmployee(employees.employee)"/>
 		<Route event="save" call="employeeManager.saveEmployee(view.tempEmployee)"/>
-	</Glue>
+	</Glue>-->
 	
-	
+	<!-- Services :: Put these in another file -->
+	<mx:HTTPService id="employeesService" url="assets/data/Employees.xml" resultFormat="e4x" />
 	
 </GlueMap>

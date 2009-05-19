@@ -5,7 +5,8 @@
 
 	<mx:Script>
 	    <![CDATA[
-			import cafe.store.NavigationStore;
+			import cafe.vo.Authentication;
+			import cafe.vo.Navigation;
 	    	import mx.core.UIComponent;
 	    	import mx.validators.Validator;
 	    	import mx.events.ValidationResultEvent;
@@ -26,9 +27,9 @@
 				}
 			}
 			
-			public function set authState(value:int):void
+			public function set authState(value:String):void
 			{
-				if (value == NavigationStore.LOGIN_FAILED)
+				if (value == Authentication.FAILED)
 				{
 					error = true;
 				}

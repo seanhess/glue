@@ -1,10 +1,13 @@
 package cafe.service
 {
-	import cafe.model.Employee;
-
-	public class EmployeeUtils
+	import com.cafetownsend.vos.Employee;
+	
+	public class EmployeeParser
 	{
-		public function loadFromXML(employees:XML):Array 
+		
+		/*-.........................................Methods..........................................*/
+		
+		public function loadEmployeesFromXML(employees:XML):Array 
 		{
 			var employeeList:Array = new Array();
 				
@@ -21,15 +24,6 @@ package cafe.service
 			}
 			
 			return employeeList;
-		}
-		
-		public function copyFrom(employee:Employee, newEmployee:Employee):void 
-		{
-			employee.emp_id = newEmployee.emp_id;
-			employee.email = newEmployee.email;
-			employee.firstname = newEmployee.firstname;
-			employee.lastname = newEmployee.lastname;
-			employee.startdate = newEmployee.startdate;
 		}
 
 	}

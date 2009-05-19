@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" width="100%" 
 	xmlns:vos="com.cafetownsend.vos.*" xmlns:mate="http://mate.asfusion.com/"
-	title="Employee Details" xmlns:model="cafe.model.*">
+	title="Employee Details" xmlns:model="cafe.model.*" xmlns:vo="cafe.vo.*">
 
 	<mx:Script>
 		<![CDATA[
-			import cafe.model.Employee;
+			import cafe.vo.Employee;
 	    	import mx.events.ValidationResultEvent;
 			import mx.controls.Alert;
             import mx.events.CloseEvent;
             import mx.validators.Validator;
 			
 			[Bindable]
-			public var selectedEmployee:cafe.model.Employee;
+			public var selectedEmployee:Employee;
 			
 			// mutate the back button's click event
 			private function cancelEmployeeEdits() : void 
@@ -46,14 +46,13 @@
 	
 	
 	
-	<model:Employee id="tempEmployee">
-		<model:firstname>{firstname.text}</model:firstname>
-		<model:lastname>{lastname.text}</model:lastname>
-		<model:email>{email.text}</model:email>
-		<model:startdate>{startdate.selectedDate}</model:startdate>
-		<model:emp_id>{selectedEmployee.emp_id}</model:emp_id>
-	</model:Employee>
-	
+	<vo:Employee id="tempEmployee">
+		<vo:firstname>{firstname.text}</vo:firstname>
+		<vo:lastname>{lastname.text}</vo:lastname>
+		<vo:email>{email.text}</vo:email>
+		<vo:startdate>{startdate.selectedDate}</vo:startdate>
+		<vo:emp_id>{selectedEmployee.emp_id}</vo:emp_id>
+	</vo:Employee>
 	
 	<mx:Button label="&lt;&lt; Back" click="cancelEmployeeEdits()" />
 	<mx:Form defaultButton="{submit}">

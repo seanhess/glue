@@ -1,30 +1,28 @@
 package cafe.manager
 {
-	import cafe.store.NavigationStore;
+	import cafe.vo.Authentication;
 	
+	[Bindable]
 	public class AuthorizationManager
 	{
-		public var navigation:NavigationStore;
+		public var state:String = Authentication.LOGOUT;
 		
-		public function login(username:String, password:String):Boolean 
+		public function login(username:String, password:String):void 
 		{
+			//check hardcoded username and password
 			if (username == 'Flex' && password == 'Glue') 
 			{
-				navigation.mainPage = NavigationStore.EMPLOYEE_LIST;
-				navigation.authState = NavigationStore.LOGGED_IN;
+				state = Authentication.AUTHENTICATED;
 			}
 			else
 			{
-				navigation.authState = NavigationStore.LOGIN_FAILED;
+				state = Authentication.FAILED;
 			}
-			
-			return false;
 		}
 		
 		public function logout():void
 		{
-			navigation.mainPage = NavigationStore.LOGIN_SCREEN;
-			navigation.authState = NavigationStore.LOGGED_OUT;
+			state = Authentication.LOGOUT;
 		}
 	}
 }
