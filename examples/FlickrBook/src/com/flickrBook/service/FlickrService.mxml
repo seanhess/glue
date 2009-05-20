@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Object xmlns:mx="http://www.adobe.com/2006/mxml">
+
+	<mx:Script>
+		<![CDATA[
+			[Bindable] public var apiKey:String;
+			[Bindable] public var url:String;
+			
+			public function search(tags:String):void
+			{
+				searching.request.tags = tags;
+				searching.send();
+			} 
+		]]>
+	</mx:Script>
+	
+	<!-- Other Services -->
+	<mx:HTTPService id="interestingness" url="{url}" resultFormat="e4x">
+		<mx:request>
+			<api_key>{apiKey}</api_key>
+			<method>flickr.interestingness.getList</method>
+		</mx:request>
+	</mx:HTTPService>
+	
+	<mx:HTTPService id="searching" url="{url}" resultFormat="e4x">
+		<mx:request>
+			<api_key>{apiKey}</api_key>
+			<method>flickr.photos.search</method>
+			<!--<user_id>{currentSearch.user}</user_id>
+			<page>{currentSearch.page}</page>
+			<tags>{tags}</tags>-->
+		</mx:request>
+	</mx:HTTPService>
+	
+</mx:Object>

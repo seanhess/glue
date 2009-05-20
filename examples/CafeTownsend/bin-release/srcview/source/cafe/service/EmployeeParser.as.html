@@ -1,0 +1,40 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>EmployeeParser.as</title>
+<link rel="stylesheet" type="text/css" href="../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="ActionScriptpackage">package</span> <span class="ActionScriptDefault_Text">cafe</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">service</span>
+<span class="ActionScriptBracket/Brace">{</span>
+    <span class="ActionScriptReserved">import</span> <span class="ActionScriptDefault_Text">cafe</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">vo</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">Employee</span>;
+    
+    <span class="ActionScriptReserved">public</span> <span class="ActionScriptclass">class</span> <span class="ActionScriptDefault_Text">EmployeeParser</span>
+    <span class="ActionScriptBracket/Brace">{</span><span class="ActionScriptBracket/Brace"></span><span class="ActionScriptBracket/Brace"></span>
+        
+        <span class="ActionScriptComment">/*-.........................................Methods..........................................*/</span>
+        
+        <span class="ActionScriptReserved">public</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptDefault_Text">loadEmployeesFromXML</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">employees</span>:<span class="ActionScriptDefault_Text">XML</span><span class="ActionScriptBracket/Brace">)</span>:<span class="ActionScriptDefault_Text">Array</span> 
+        <span class="ActionScriptBracket/Brace">{</span>
+            <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">employeeList</span>:<span class="ActionScriptDefault_Text">Array</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">Array</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptBracket/Brace">)</span>;
+                
+            <span class="ActionScriptReserved">for each</span><span class="ActionScriptBracket/Brace">(</span> <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">thisEmployee</span>:<span class="ActionScriptDefault_Text">XML</span> <span class="ActionScriptReserved">in</span> <span class="ActionScriptDefault_Text">employees</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text"></span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">employee</span> <span class="ActionScriptBracket/Brace">)</span> 
+            <span class="ActionScriptBracket/Brace">{</span>
+                <span class="ActionScriptvar">var</span> <span class="ActionScriptDefault_Text">employee</span>:<span class="ActionScriptDefault_Text">Employee</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">Employee</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptBracket/Brace">)</span>;
+                <span class="ActionScriptDefault_Text">employee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">email</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">thisEmployee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">email</span>;
+                <span class="ActionScriptDefault_Text">employee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">emp_id</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">thisEmployee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">emp_id</span>;
+                <span class="ActionScriptDefault_Text">employee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">firstname</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">thisEmployee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">firstname</span>;
+                <span class="ActionScriptDefault_Text">employee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">lastname</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptDefault_Text">thisEmployee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">lastname</span>;
+                <span class="ActionScriptDefault_Text">employee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">startdate</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">Date</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">Date</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">parse</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">thisEmployee</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">startdate</span><span class="ActionScriptBracket/Brace">)</span><span class="ActionScriptBracket/Brace">)</span>;
+            
+                <span class="ActionScriptDefault_Text">employeeList</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">push</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">employee</span><span class="ActionScriptBracket/Brace">)</span>;
+            <span class="ActionScriptBracket/Brace">}</span>
+            
+            <span class="ActionScriptReserved">return</span> <span class="ActionScriptDefault_Text">employeeList</span>;
+        <span class="ActionScriptBracket/Brace">}</span>
+
+    <span class="ActionScriptBracket/Brace"></span><span class="ActionScriptBracket/Brace">}</span>
+<span class="ActionScriptBracket/Brace"></span><span class="ActionScriptBracket/Brace">}</span></pre></body>
+</html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EventMap
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="http://mate.asfusion.com/">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import com.flickrBook.business.*;
+			import com.flickrBook.events.*;
+			import com.flickrBook.business.modelManagers.*;
+			import com.flickrBook.ui.views.*;
+		]]>
+	</mx:Script>
+	
+	
+	<!-- Reading XML configuration file, after that call flickr service to get the initial thumbnails -->
+	<!-- ____________________________________________________________________________________________ -->
+	
+	<EventHandlers type="{FlexEvent.PREINITIALIZE}">
+		<HTTPServiceInvoker method="GET" resultFormat="e4x"  url="assets/config/configuration.xml" >
+			<resultHandlers>
+				<MethodInvoker generator="{Config}" method="readConfig" arguments="{[resultObject, data]}" cache="false"/>
+				
+				<MethodInvoker generator="{FlickrHelper}" method="prepareSearch" arguments="{[data.user, data.tags]}">
+					<Properties dispatcher="{scope.dispatcher}"/>
+				</MethodInvoker>
+				
+			</resultHandlers>
+		</HTTPServiceInvoker>
+	</EventHandlers>
+	
+	<!-- SearchEvent.PREPARE ________________________________________________________________________ -->
+	
+	<EventHandlers type="{SearchEvent.PREPARE}">
+		<MethodInvoker generator="{FlickrHelper}" method="prepareSearch" arguments="{[event.user, event.tags]}"/>
+	</EventHandlers>
+	
+	
+	<!-- SearchEvent.FIND_USER ________________________________________________________________________ -->
+	
+	<EventHandlers type="{SearchEvent.FIND_USER}">
+		<HTTPServiceInvoker  instance="{flickrService}" url="{Config.API_URL}">
+			<Request method="flickr.people.findByUsername" api_key="{Config.API_KEY}" username="{event.user}" />
+			<resultHandlers>
+				<MethodInvoker generator="{FlickrParser}" method="parseUser" arguments="{resultObject}" />
+				
+				<EventAnnouncer generator="{SearchEvent}" type="{SearchEvent.SEARCH}">
+					<Properties userID="{lastReturn}" tags="{event.tags}" />
+				</EventAnnouncer>
+				
+			</resultHandlers>
+		</HTTPServiceInvoker>
+	</EventHandlers>
+	
+	
+	<!-- SearchEvent.SEARCH ________________________________________________________________________ -->
+	
+	<EventHandlers type="{SearchEvent.SEARCH}">
+		<HTTPServiceInvoker instance="{flickrService}" url="{Config.API_URL}" >
+			<Request method="flickr.photos.search" api_key="{Config.API_KEY}" user_id="{event.userID}" tags="{event.tags}" page="{event.page}" />
+			<resultHandlers>
+				<MethodInvoker generator="{FlickrParser}"	method="parseXML" 	arguments="{resultObject}" cache="false"/>
+				<MethodInvoker generator="{PhotoManager}" 	method="setPhotos" 	arguments="{lastReturn}" />
+			</resultHandlers>
+		</HTTPServiceInvoker>
+	</EventHandlers>
+	
+	
+	<!-- SearchEvent.INTERESTINGNESS ________________________________________________________________________ -->
+	
+	<EventHandlers type="{SearchEvent.INTERESTINGNESS}">
+		<HTTPServiceInvoker instance="{flickrService}" url="{Config.API_URL}">
+			<Request method="flickr.interestingness.getList" api_key="{Config.API_KEY}" />
+			<resultHandlers>
+				<MethodInvoker generator="{FlickrParser}"	method="parseXML" 	arguments="{resultObject}" cache="false"/>
+				<MethodInvoker generator="{PhotoManager}" 	method="setPhotos" 	arguments="{lastReturn}" />
+			</resultHandlers>
+		</HTTPServiceInvoker>
+	</EventHandlers>
+	
+	
+	<!-- ======================================================================================== -->
+	<!-- Property Injectors _____________________________________________________________________ -->
+	
+	
+	<!-- PhotoViewerModel _______________________________________________________________________ -->
+	
+	<Injectors target="{PhotoViewer}" >
+		<PropertyInjector targetKey="currentSet" source="{PhotoManager}" sourceKey="currentSet" />
+	</Injectors>
+	
+	
+	<!-- ======================================================================================== -->
+	<!-- Services   Note: you can have an external file if you have more services -->
+	<!-- _________________________________________________________________________________________ -->
+	
+	<mx:HTTPService id="flickrService" method="GET" resultFormat="e4x"/>
+	
+</EventMap>

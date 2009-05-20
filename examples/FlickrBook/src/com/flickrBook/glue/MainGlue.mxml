@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:service="com.flickrBook.service.*" xmlns:manager="com.flickrBook.manager.*">
+
+	<mx:Script>
+		<![CDATA[
+			import com.flickrBook.ui.views.MainUI;
+			import mx.events.FlexEvent;
+		]]>
+	</mx:Script>
+	
+	<!-- Managers -->
+	<manager:PhotoManager id="photos"/>
+	<manager:Config id="config"/>
+	
+	<service:FlickrService id="flickr" apiKey="{config.key}" url="{config.url}"/>
+	<mx:HTTPService id="configService" url="assets/config/configuration.xml" resultFormat="e4x"/>
+	<service:FlickrParser id="parser"/>
+
+	<!-- COMMAND -->
+	<Command id="initialize">
+		<Action watch="{configService}" call="configService.send()">
+			<result>
+				<Action call="config.readConfig(scope.event.result)"/>
+				<Action call="loadInterestingness.execute()"/>
+			</result>
+		</Action>
+	</Command>
+	
+	<Command id="loadInterestingness">
+		<Action watch="{flickr.interestingness}" call="flickr.interestingness.send()">
+			<result>
+				<Action call="storePhotos.execute({result:scope.event.result})"/>
+			</result>
+		</Action>
+	</Command>
+	
+	<Command id="runSearch" search="none">
+		<Action watch="{flickr.searching}" call="flickr.search(scope.search.tags)">
+			<result>
+				<Action call="storePhotos.execute({result:scope.event.result})"/>
+			</result>
+		</Action>
+	</Command>
+	
+	<Command id="storePhotos" result="none">
+		<Action call="scope.photos = parser.parseXML(scope.result)"/>
+		<Action call="photos.setPhotos(scope.photos)"/> 
+	</Command>
+	
+	<!-- VIEWS -->
+	<Glue match="MainUI">
+		<Route event="{FlexEvent.CREATION_COMPLETE}" 	call="initialize.execute()"/>
+		<Route event="interestingness" 		call="loadInterestingness.execute()"/>
+		<Route event="search" 				call="runSearch.execute({search:view.search})"/>
+	</Glue>
+	
+	<Glue match="PhotoViewer">
+		<Inject currentSet="{photos.currentSet}"/>
+	</Glue>
+
+</GlueMap>

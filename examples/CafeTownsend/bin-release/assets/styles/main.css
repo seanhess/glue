@@ -1,0 +1,65 @@
+/* CSS file */
+Application {
+	backgroundColor: #000000;
+	themeColor: #4E0E02;
+}
+
+Alert {
+	backgroundColor: #FFFFFF;
+	color: #000000;
+}
+
+
+Panel {
+	borderColor: #7A2828;
+	borderThicknessLeft: 1;
+	borderThicknessRight: 1;
+	borderThicknessBottom: 1;
+	borderAlpha: 1;
+	
+	paddingTop: 10;
+	paddingLeft: 10;
+	paddingRight: 10;
+	paddingBottom: 10;
+
+	highlightAlphas: 0.67, 0;
+	headerColors: #000000, #993333;
+
+	titleStyleName: "myPanelStyle";
+}
+
+MainUI {
+	horizontalAlign : center;	
+}
+
+.mainBody {
+	backgroundColor: #FFFFFF;
+	paddingTop: 20;
+	horizontalAlign : center;	
+}
+
+
+EmployeeLogin {
+	horizontalAlign: center;
+}
+
+
+Form, Label, TextInput { 
+	   color: #000000;
+	   font-weight: normal;
+}
+
+FormItem, List { 
+	   font-weight: bold;
+	    text-align: left;
+}
+
+.myPanelStyle {
+	color: #FFFFFF;
+}
+
+.panelText {
+	color: #000000;
+	 font-weight: none;
+	 text-align: left;
+}

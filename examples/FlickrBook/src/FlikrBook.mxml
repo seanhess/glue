@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application 
     xmlns:mx="http://www.adobe.com/2006/mxml"  
-    xmlns:control="flickr.control.*" xmlns:views="flickr.ui.views.*" xmlns:glue="flickr.glue.*" viewSourceURL="srcview/index.html">
+    viewSourceURL="srcview/index.html" xmlns:glue="com.flickrBook.glue.*" xmlns:views="com.flickrBook.ui.views.*">
 
     <!-- Styles ________________________________________________________________________ -->
     

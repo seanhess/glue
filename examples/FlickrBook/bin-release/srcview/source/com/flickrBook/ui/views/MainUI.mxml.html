@@ -1,0 +1,59 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>MainUI.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="MXMLProcessing_Instruction">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="MXMLComponent_Tag">&lt;mx:Canvas</span><span class="MXMLDefault_Text"> xmlns:mx="</span><span class="MXMLString">http://www.adobe.com/2006/mxml</span><span class="MXMLDefault_Text">" 
+    xmlns:controls="</span><span class="MXMLString">flexlib.controls.*</span><span class="MXMLDefault_Text">" 
+    xmlns:qs="</span><span class="MXMLString">qs.controls.*</span><span class="MXMLDefault_Text">" xmlns:views="</span><span class="MXMLString">com.flickrBook.ui.views.*</span><span class="MXMLDefault_Text">"</span><span class="MXMLComponent_Tag">&gt;</span>
+
+    <span class="MXMLSpecial_Tag">&lt;mx:Script&gt;</span>
+        <span class="ActionScriptOperator">&lt;</span><span class="ActionScriptOperator">!</span><span class="ActionScriptBracket/Brace">[</span><span class="ActionScriptDefault_Text">CDATA</span><span class="ActionScriptBracket/Brace">[</span>
+            <span class="ActionScriptReserved">public</span> <span class="ActionScriptReserved">static</span> <span class="ActionScriptBracket/Brace"></span><span class="ActionScriptBracket/Brace"></span><span class="ActionScriptReserved">const</span> <span class="ActionScriptDefault_Text">INTERESTINGNESS</span>:<span class="ActionScriptDefault_Text">String</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptString">"interestingness"</span>;
+            <span class="ActionScriptReserved">public</span> <span class="ActionScriptReserved">static</span> <span class="ActionScriptReserved">const</span> <span class="ActionScriptDefault_Text">SEARCH</span>:<span class="ActionScriptDefault_Text">String</span> <span class="ActionScriptOperator">=</span> <span class="ActionScriptString">"search"</span>;
+        
+            <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptDefault_Text">showInterestingness</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptBracket/Brace">)</span>:<span class="ActionScriptReserved">void</span>
+            <span class="ActionScriptBracket/Brace">{</span>
+                <span class="ActionScriptDefault_Text">dispatchEvent</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">Event</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">INTERESTINGNESS</span><span class="ActionScriptBracket/Brace">)</span><span class="ActionScriptBracket/Brace">)</span>;
+            <span class="ActionScriptBracket/Brace">}</span>
+            
+            <span class="ActionScriptReserved">private</span> <span class="ActionScriptfunction">function</span> <span class="ActionScriptDefault_Text">showSearch</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptBracket/Brace">)</span>:<span class="ActionScriptReserved">void</span>
+            <span class="ActionScriptBracket/Brace">{</span>
+                <span class="ActionScriptDefault_Text">dispatchEvent</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptReserved">new</span> <span class="ActionScriptDefault_Text">Event</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptDefault_Text">SEARCH</span><span class="ActionScriptBracket/Brace">)</span><span class="ActionScriptBracket/Brace">)</span>;
+            <span class="ActionScriptBracket/Brace">}</span>
+        <span class="ActionScriptBracket/Brace"></span><span class="ActionScriptBracket/Brace">]</span><span class="ActionScriptBracket/Brace"></span><span class="ActionScriptBracket/Brace">]</span><span class="ActionScriptOperator">&gt;</span>
+    <span class="MXMLSpecial_Tag">&lt;/mx:Script&gt;</span>
+    
+    <span class="MXMLComponent_Tag">&lt;mx:Object</span><span class="MXMLDefault_Text"> id="</span><span class="MXMLString">search</span><span class="MXMLDefault_Text">"</span><span class="MXMLComponent_Tag">&gt;</span>
+        <span class="MXMLComponent_Tag">&lt;mx:tags&gt;</span>{<span class="ActionScriptDefault_Text">tagsInput</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">text</span>}<span class="MXMLComponent_Tag">&lt;/mx:tags&gt;</span>
+        <span class="MXMLComponent_Tag">&lt;mx:user&gt;</span>{<span class="ActionScriptDefault_Text">userInput</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">text</span>}<span class="MXMLComponent_Tag">&lt;/mx:user&gt;</span>
+    <span class="MXMLComponent_Tag">&lt;/mx:Object&gt;</span>
+    
+    <span class="MXMLComponent_Tag">&lt;mx:HBox</span><span class="MXMLDefault_Text"> styleName="</span><span class="MXMLString">topBar</span><span class="MXMLDefault_Text">" width="</span><span class="MXMLString">100%</span><span class="MXMLDefault_Text">" height="</span><span class="MXMLString">55</span><span class="MXMLDefault_Text">" </span><span class="MXMLComponent_Tag">&gt;</span>
+    
+        <span class="MXMLComponent_Tag">&lt;mx:Button</span><span class="MXMLDefault_Text"> label="</span><span class="MXMLString">Interestingness</span><span class="MXMLDefault_Text">" click="</span><span class="ActionScriptDefault_Text">showInterestingness</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptBracket/Brace">)</span><span class="MXMLDefault_Text">" </span><span class="MXMLComponent_Tag">/&gt;</span>
+        <span class="MXMLComponent_Tag">&lt;mx:VRule</span><span class="MXMLDefault_Text"> height="</span><span class="MXMLString">100%</span><span class="MXMLDefault_Text">" </span><span class="MXMLComponent_Tag">/&gt;</span>
+        
+        <span class="MXMLComponent_Tag">&lt;mx:Image</span><span class="MXMLDefault_Text"> source="</span><span class="MXMLString">@Embed(source='/assets/images/tag_icon.png')</span><span class="MXMLDefault_Text">"</span><span class="MXMLComponent_Tag">/&gt;</span>
+        <span class="MXMLComponent_Tag">&lt;controls:PromptingTextInput</span><span class="MXMLDefault_Text"> id="</span><span class="MXMLString">tagsInput</span><span class="MXMLDefault_Text">" prompt="</span><span class="MXMLString">Search for Tags</span><span class="MXMLDefault_Text">" enter="</span><span class="ActionScriptDefault_Text">showSearch</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptBracket/Brace">)</span><span class="MXMLDefault_Text">"</span><span class="MXMLComponent_Tag">/&gt;</span>
+        <span class="MXMLComponent_Tag">&lt;mx:VRule</span><span class="MXMLDefault_Text"> height="</span><span class="MXMLString">100%</span><span class="MXMLDefault_Text">" </span><span class="MXMLComponent_Tag">/&gt;</span>
+        
+        <span class="MXMLComponent_Tag">&lt;mx:Image</span><span class="MXMLDefault_Text"> source="</span><span class="MXMLString">@Embed(source='/assets/images/user_icon.png')</span><span class="MXMLDefault_Text">" </span><span class="MXMLComponent_Tag">/&gt;</span>
+        <span class="MXMLComponent_Tag">&lt;controls:PromptingTextInput</span><span class="MXMLDefault_Text"> id="</span><span class="MXMLString">userInput</span><span class="MXMLDefault_Text">" prompt="</span><span class="MXMLString">Search for User</span><span class="MXMLDefault_Text">" enter="</span><span class="ActionScriptDefault_Text">showSearch</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptBracket/Brace">)</span><span class="MXMLDefault_Text">" enabled="</span><span class="MXMLString">false</span><span class="MXMLDefault_Text">"</span><span class="MXMLComponent_Tag">/&gt;</span>
+        <span class="MXMLComponent_Tag">&lt;mx:VRule</span><span class="MXMLDefault_Text"> height="</span><span class="MXMLString">100%</span><span class="MXMLDefault_Text">" </span><span class="MXMLComponent_Tag">/&gt;</span>
+        
+        <span class="MXMLComponent_Tag">&lt;mx:Button</span><span class="MXMLDefault_Text"> label="</span><span class="MXMLString">Search</span><span class="MXMLDefault_Text">" click="</span><span class="ActionScriptDefault_Text">showSearch</span><span class="ActionScriptBracket/Brace">(</span><span class="ActionScriptBracket/Brace">)</span><span class="MXMLDefault_Text">"</span><span class="MXMLComponent_Tag">/&gt;</span>
+    <span class="MXMLComponent_Tag">&lt;/mx:HBox&gt;</span>
+    
+    <span class="MXMLComponent_Tag">&lt;views:PhotoViewer</span><span class="MXMLDefault_Text"> id="</span><span class="MXMLString">photoViewer</span><span class="MXMLDefault_Text">" width="</span><span class="MXMLString">310</span><span class="MXMLDefault_Text">" height="</span><span class="MXMLString">100%</span><span class="MXMLDefault_Text">" y="</span><span class="MXMLString">55</span><span class="MXMLDefault_Text">" right="</span><span class="MXMLString">0</span><span class="MXMLDefault_Text">" </span><span class="MXMLComponent_Tag">/&gt;</span>
+    
+    <span class="MXMLComponent_Tag">&lt;mx:Canvas</span><span class="MXMLDefault_Text"> width="</span><span class="MXMLString">100%</span><span class="MXMLDefault_Text">" height="</span><span class="MXMLString">100%</span><span class="MXMLDefault_Text">" left="</span><span class="MXMLString">0</span><span class="MXMLDefault_Text">" right="</span><span class="MXMLString">310</span><span class="MXMLDefault_Text">" top="</span><span class="MXMLString">55</span><span class="MXMLDefault_Text">"</span><span class="MXMLComponent_Tag">&gt;</span>
+        <span class="MXMLComponent_Tag">&lt;qs:SuperImage</span><span class="MXMLDefault_Text"> source="</span><span class="MXMLString">{</span><span class="ActionScriptDefault_Text">photoViewer</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">list</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">selectedItem</span><span class="ActionScriptOperator">.</span><span class="ActionScriptDefault_Text">urlMedium</span><span class="MXMLString">}</span><span class="MXMLDefault_Text">"  verticalCenter="</span><span class="MXMLString">0</span><span class="MXMLDefault_Text">" horizontalCenter="</span><span class="MXMLString">0</span><span class="MXMLDefault_Text">"</span><span class="MXMLComponent_Tag">/&gt;</span>
+    <span class="MXMLComponent_Tag">&lt;/mx:Canvas&gt;</span>
+<span class="MXMLComponent_Tag">&lt;/mx:Canvas&gt;</span></pre></body>
+</html>
