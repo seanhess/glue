@@ -58,19 +58,27 @@ package net.seanhess.glue.tags
 			watch.addEventListener(name, handler);
 		}
 		
-		private function handler(event:Event):void
+		protected function handler(event:Event):void
 		{
 			removeListeners();
-			
+			updateScope(event);
+			runActions(event);
+		}
+		
+		protected function updateScope(event:Event):void
+		{
 			var scope:Scope = new Scope();
 				scope.parent = Scope.current;
 				scope.event = event;
-				scope.target = watch; // wait, what's wrong with this?
+				scope.target = watch;
 				
-			Scope.current = scope;		
-			
+			Scope.current = scope;	
+		}
+		
+		protected function runActions(event:Event):void
+		{
 			for each (var action:Action in listeners[event.type])
-				action.execute();		
+				action.execute(); 
 		}
 			
 		public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
