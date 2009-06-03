@@ -3,48 +3,33 @@
 	
 	<mx:Script>
 		<![CDATA[
-			public static const GO_BACK:String = "goBack";
-		
-			public function showBrowse():void
-			{
-				slide.reset(browseResults);
-			}
+			[Bindable] public var backEnabled:Boolean = true;
 			
-			public function showSearch():void
+			import books.model.Browse;
+			public function set page(value:String):void
 			{
-				slide.show(search);
-			}
-			
-			public function showBook():void
-			{
-				slide.show(book);
-			}
-			
-			public function showAuthor():void
-			{
-				slide.show(author);
-			}
-			
-			public function showSearchResults():void
-			{
-				slide.show(searchResults)	
-			}
-			
-			public function goBack():void
-			{
-				slide.hide();
+				switch(value)
+				{
+					case Browse.BROWSE:	slide.show(browseResults); break;
+					case Browse.SEARCH: slide.show(search); break;
+					case Browse.BOOK: 	slide.show(book); break;
+					case Browse.AUTHOR: slide.show(author); break;
+					case Browse.SEARCH_RESULTS: slide.show(searchResults); break;
+					default:
+				}				
 			}
 			
 			private function onBackClick():void
 			{
-				dispatchEvent(new Event(GO_BACK));
+				slide.hide();
+				dispatchEvent(new Event("back"));
 			}
 			
 		]]>
 	</mx:Script>
 	
 	<mx:HBox>
-		<mx:Button id="back" label="Back" click="onBackClick()"/>
+		<mx:Button id="back" label="Back" click="onBackClick()" enabled="{backEnabled}"/>
 	</mx:HBox>
 	
 	<controls:SimpleSlide id="slide" width="100%" height="100%">

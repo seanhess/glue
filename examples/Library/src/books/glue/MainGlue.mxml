@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*" xmlns:model="books.model.*" xmlns:service="books.service.*">
+<GlueMap xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="http://glue.seanhess.net/2009" xmlns:control="books.control.*" xmlns:view="books.view.*" xmlns:browse="books.view.browse.*" xmlns:pages="books.view.pages.*" xmlns:model="books.model.*" xmlns:service="books.service.*" xmlns:manager="books.manager.*">
 
 	<mx:Script>
 		<![CDATA[
@@ -8,68 +8,54 @@
 		]]>
 	</mx:Script>
 	
-	<!-- MODELS -->
-	<model:Library id="library"/>
-	<model:Browse id="browse"/>
-	<model:Search id="search"/>
+	<!-- MANAGERS -->
+	<manager:LibraryManager id="library"/>
+	<manager:BrowseManager id="browse" allAuthors="{library.authors}" allBooks="{library.books}"/>
+	<manager:SearchManager id="search" allAuthors="{library.authors}" allBooks="{library.books}"/>
 	
-	
-	
-	<!-- SERVICES -->
-	<service:BrowseService id="browseService" browse="{browse}" library="{library}"/>
-	<service:SearchService id="searchService" search="{search}" library="{library}"/>	
-
 
 
 
 	
 	
-	<Glue>
-		<view:MainView id="mainView"/>
-		<Route event="{FlexEvent.CREATION_COMPLETE}" call="library.mock()"/>
-		<Route event="{MainView.SEARCH}" call="browseService.showSearch()"/>
-		<Route event="{MainView.BROWSE}" call="browseService.showBrowse()"/>
+	<Glue match="MainView">
+		<Route event="creationComplete" call="library.mock()"/>
+		<Route event="search" call="browse.showSearch()"/>
+		<Route event="browse" call="browse.showBrowse()"/>
 	</Glue>
 
-	<Glue>
-		<view:MainPagesView id="pages"/>
+	<Glue match="MainPagesView">
+		<Inject page="{browse.state}"/>
+		<Inject backEnabled="{browse.backEnabled}"/>
 		
-		<Inject child="{pages.back}" visible="{browse.backEnabled}"/>
-		<Inject child="{pages.browseResults}" books="{library.books}" authors="{library.authors}"/>
-		<Inject child="{pages.searchResults}" books="{search.bookResults}" authors="{search.authorResults}"/>
-		
-		<Route event="{MainPagesView.GO_BACK}" call="browseService.goBack()"/>
-		
-		<Route event="goBack" 		from="{browse}" to="pages.goBack()"/>
-		<Route event="showSearch" 	from="{browse}" to="pages.showSearch()"/>
-		<Route event="showBrowse" 	from="{browse}" to="pages.showBrowse()"/>
-		<Route event="showBook" 	from="{browse}" to="pages.showBook()"/>
-		<Route event="showAuthor" 	from="{browse}" to="pages.showAuthor()"/>
-		
-		<Route event="search"		from="{search}" call="pages.showSearchResults()"/>
+		<Route event="back" call="browse.goBack()"/>
 	</Glue>
 	
-	<Glue>
-		<pages:ResultsPage id="results"/>
-		<Route event="{ResultsPage.SELECT_BOOK}" call="browseService.showBook(results.selectedBook)"/>
-		<Route event="{ResultsPage.SELECT_AUTHOR}" call="browseService.showAuthor(results.selectedAuthor)"/>
+	<Glue match="ResultsPage">
+		<Route event="selectBook" 	call="browse.showBook(view.selectedBook)"/>
+		<Route event="selectAuthor" call="browse.showAuthor(view.selectedAuthor)"/>
 	</Glue>
 	
-	<!-- 
-		I could use MouseEvent.click instead of click here if I cared
-	-->
-	<Glue match="BookView">
+	<Glue match="ResultsPage#browseResults">
+		<Inject books="{library.books}" authors="{library.authors}"/>
+	</Glue>
+	
+	<Glue match="ResultsPage#searchResults">
+		<Inject books="{search.bookResults}" authors="{search.authorResults}"/>
+	</Glue>
+	
+	<Glue match="BookPage">
 		<Inject book="{browse.currentBook}"/>
-		<Route event="{BookPage.SELECT_AUTHOR}" call="browseService.showAuthor(view.book.author)"/>
+		<Route event="selectAuthor" call="browse.showAuthor(view.book.author)"/>
 	</Glue>
 	
 	<Glue match="AuthorPage">
 		<Inject author="{browse.currentAuthor}"/>
-		<Route event="{AuthorPage.SELECT_BOOK}" call="browseService.showBook(view.booksList.selectedItem as Book)"/>
+		<!--<Route event="selectBook" call="browse.showBook(view.booksList.selectedItem as Book)"/>-->
 	</Glue>
 	
 	<Glue match="SearchPage">
-		<Route event="search" call="searchService.doSearch(view.search)"/>
+		<Route event="search" call="search.doSearch(view.search)"/>
 	</Glue>
 
 </GlueMap>

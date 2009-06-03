@@ -1,11 +1,11 @@
-package books.model
+package books.manager
 {
 	import books.model.mock.MockData;
 	
 	import mx.collections.IList;
-	
+
 	[Bindable]
-	public class Library
+	public class LibraryManager
 	{
 		public var books:IList;
 		public var authors:IList;
