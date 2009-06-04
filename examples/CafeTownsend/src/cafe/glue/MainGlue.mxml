@@ -38,12 +38,17 @@
 	
 	<Command id="deleteEmployee">
 		<Action call="employeeManager.deleteEmployee()"/>
-		<Action call="navManager.goBack()"/>
+		<Action call="goBack.execute()"/>
 	</Command>
 	
 	<Command id="saveEmployee" employee="none">
 		<Action call="employeeManager.saveEmployee(scope.employee)"/>
+		<Action call="goBack.execute()"/>
+	</Command>
+	
+	<Command id="goBack">
 		<Action call="navManager.goBack()"/>
+		<Action call="employeeManager.selectEmployee(null)"/>
 	</Command>
 	
 	<!-- Manager -->
@@ -71,7 +76,7 @@
 	
 	<Glue match="EmployeeDetail">
 		<Inject selectedEmployee="{employeeManager.employee}"/>
-		<Route event="back" call="navManager.goBack()"/>
+		<Route event="back" call="goBack.execute()"/>
 		<Route event="remove" call="deleteEmployee.execute()"/>
 		<Route event="save" call="saveEmployee.execute({employee:view.tempEmployee})"/>
 	</Glue>

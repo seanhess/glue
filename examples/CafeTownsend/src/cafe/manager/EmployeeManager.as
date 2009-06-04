@@ -51,15 +51,15 @@ package cafe.manager
 			// clear out the selected employee just in case
 			selectEmployee(null);
 		}
-		
+		 
 		public function newEmployee():void
 		{
 			var employee:Employee = new Employee();
 				employee.firstname = "";
 				employee.lastname = "";
 				
-			saveEmployee(employee);
-			selectEmployee(employee);
+//			saveEmployee(employee);
+//			selectEmployee(employee);
 		}
 
 		// -----------------------------------------------------------
